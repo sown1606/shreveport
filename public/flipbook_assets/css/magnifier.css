@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+	#magnifyButtonImg  {
+		width: 100%;
+    	height: 100%;
+	}
+
+	#magnifyButton {
+	    float: right;
+	    background-color: black;
+	    padding-top: 4px;
+	    padding-bottom: 4px;
+	    padding-left: 4px;
+	    padding-right: 4px;
+	    border-radius: 10%;
+	    margin: 5px;
+	    width: 45px; height: 45px; 
+	}
+	
+	#magnifyButton:hover{
+	 	cursor: pointer;
+	}
+		
+	#magnifyButtonS {
+	    float: right;
+	    background-color: black;
+	    padding-top: 4px;
+	    padding-bottom: 4px;
+	    padding-left: 4px;
+	    padding-right: 4px;
+	    border-radius: 10%;
+	    margin: 5px;
+	    width: 45px; height: 45px; 
+	    
+	}
+	
+	#magnifyButtonS:hover{
+	 	cursor: pointer;
+	}
+	
+	/* Used for Magnifying Glass */
+	#glass {
+		position: absolute;
+		/*border-radius: 50%;*/
+		border-radius: 10px;
+		box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+		display: none;
+		background-repeat: no-repeat;
+		background-color: rgba(0,0,0,.6);
+		z-index: 99;
+		/*
+		width: 35%;
+		height: 30%;*/
+		width: 660px;
+		height: 265px;		
+	}
+
+	/***************************************************/
+	/* Responsive Structure */
+	/***************************************************/
+	@media only screen and (width: 1366px) and (height: 1024px) {	/* used for ipad pro */
+				
+		#magnifyButton, #magnifyButtonS {
+			/*display: none;*/
+		}
+	}
+		
+	@media only screen and (max-width: 1280px) {
+				
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+	}
+
+	@media only screen and (max-width: 1112px) {	/* Ron's ipad */
+	/*@media only screen and (max-width: 1024px) {*/
+			
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+	
+	}
+
+	@media only screen and (max-width: 800px) {
+	
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}
+	
+	@media only screen and (max-width: 640px) {
+			
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}
+		
+	@media only screen and (max-width: 480px) {
+			
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}
+
+	@media only screen and (max-width: 375px) {
+		
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}
+
+
+	@media only screen and (max-width: 360px) {
+		
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}
+
+
+	@media only screen and (max-width: 320px) {
+		
+		#magnifyButton, #magnifyButtonS {
+			display: none;
+		}
+
+	}

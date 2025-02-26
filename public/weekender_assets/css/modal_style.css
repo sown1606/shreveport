@@ -1,0 +1,58 @@
+.modal-wrap {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.modal-wrap .slick-arrow {
+    display: none !important;
+}
+
+.modal-wrap .slick-prev {
+    display: none!important;
+    left: -45px;
+}
+
+.modal-wrap .slick-next {
+    display: none!important;
+    right: -45px;
+}
+
+.modal-wrap .slick-prev:before,
+.modal-wrap .slick-next:before {
+    display: none;
+}
+
+.modal-wrap .slider-thumb {
+    margin: 30px -15px 50px;
+}
+
+.slider-thumb img {
+    opacity: 0.6;
+    margin: 0 15px;
+}
+
+.slider-thumb .slick-prev {
+    left: -30px;
+}
+
+.slider-thumb .slick-next {
+    right: -30px;
+}
+
+.slider-thumb img.slick-current {
+    opacity: 1;
+}
+
+.slider-thumb .slick-dots li button:before {
+    display: none;
+}
+
+.slider-thumb .slick-dots li button {
+    font-size: 14px;
+    line-height: 1;
+    color: #000;
+}
+
+.slider-thumb .slick-dots .slick-active button {
+    color: #09c;
+}
