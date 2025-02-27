@@ -5,7 +5,7 @@
 @section('page_header')
     <style>
         .mb-0 {
-            background-color: red;
+            background-color: #5c8d33;
             margin-bottom: 5px;
         }
 
@@ -51,7 +51,7 @@
                                                 <button class="btn btn-link btn-collapse" data-toggle="collapse"
                                                         data-target="#collapseOne" aria-expanded="true"
                                                         aria-controls="collapseOne">
-                                                    <h1 class="report-title" style="color: white">Shreveport Table
+                                                    <h1 class="report-title" style="color: white">Digital Dog Direct Table
                                                         Statistics</h1>
                                                 </button>
                                             </h5>
@@ -62,11 +62,11 @@
                                                 <div class="container" style="max-width: 70%">
                                                     <div class="row">
                                                         <img src="{{ Voyager::image(setting('admin.icon_image')) }}"
-                                                             alt="Logo">
+                                                             alt="Logo" style="max-width: 100px">
                                                     </div>
                                                     <div class="row">
                                                         <h1 class="report-title">
-                                                            Shreveport Table Statistics
+                                                            Digital Dog Direct Table Statistics
                                                         </h1>
                                                     </div>
                                                     <div class="row text-left">
@@ -188,7 +188,7 @@
                                                         data-toggle="collapse"
                                                         data-target="#collapseTwo" aria-expanded="false"
                                                         aria-controls="collapseTwo">
-                                                    <h1 class="report-title" style="color: white">Shreveport Registration
+                                                    <h1 class="report-title" style="color: white">Digital Dog Direct Registration
                                                         Table Statistics</h1>
                                                 </button>
                                             </h5>
@@ -199,11 +199,11 @@
                                                 <div class="container" style="max-width: 70%">
                                                     <div class="row">
                                                         <img src="{{ Voyager::image(setting('admin.icon_image')) }}"
-                                                             alt="Logo">
+                                                             alt="Logo" style="max-width: 100px">
                                                     </div>
                                                     <div class="row">
                                                         <h1 class="report-title">
-                                                            Shreveport Registration Table Statistics
+                                                            Digital Dog Direct Registration Table Statistics
                                                         </h1>
                                                     </div>
                                                     <div class="row text-left">

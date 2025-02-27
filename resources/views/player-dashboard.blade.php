@@ -381,7 +381,7 @@
                                                               src="{{asset('flipbook_assets/pages/left-arrow.svg')}}"
                                                               alt=""/></a>
                                         </div>
-                                        <center><h4 style="color: red;">{{$data->MAR2023_CORE_SMLabel}}</h4>
+                                        <center><h4 style="color: #5c8d33;">{{$data->MAR2023_CORE_SMLabel}}</h4>
                                         </center>
                                         <div id="flipbook-container-response" class="container-response">
                                             <div class="flipbook">
@@ -799,7 +799,7 @@
                                                                         alt=""/></a>
                                         </div>
                                         <center>
-                                            <h4 style="color: red;">{{$data->New_Years_Eve_Invite_6pgLabel}}</h4>
+                                            <h4 style="color: #5c8d33;">{{$data->New_Years_Eve_Invite_6pgLabel}}</h4>
                                         </center>
                                         <div id="flipbook-container-response" class="container-response">
                                             <div class="flipbook-container-third-mar">
@@ -1222,7 +1222,7 @@
                                                     alt=""/></a>
                                         </div>
                                         <center><h5
-                                                style="color: red;">{{$data->FEB2023_CORE_SMLabel}}</h5>
+                                                style="color: #5c8d33;">{{$data->FEB2023_CORE_SMLabel}}</h5>
                                         </center>
                                         <div id="flipbook-container-response" class="container-response">
                                             <div class="flipbook-ninth">
@@ -1664,7 +1664,7 @@
                                                     alt=""/></a>
                                         </div>
                                         <center><h5
-                                                style="color: red;">{{$data->BSH_Mar2023_Legend_Party_InviteLabel}}</h5>
+                                                style="color: #5c8d33;">{{$data->BSH_Mar2023_Legend_Party_InviteLabel}}</h5>
                                         </center>
                                         <div id="flipbook-container-response" class="container-response">
                                             <div class="flipbook-sixth">
@@ -2079,7 +2079,7 @@
                                                     alt=""/></a>
                     </div>
                     <center>
-                        <h4 style="color: red;">{{$data->MAY2023_CORE_SMLabel}}</h4>
+                        <h4 style="color: #5c8d33;">{{$data->MAY2023_CORE_SMLabel}}</h4>
                     </center>
                     <div id="flipbook-container-response" class="container-response">
                         <div class="flipbook-container-third-may">
@@ -2506,7 +2506,7 @@
                                                     alt=""/></a>
                     </div>
                     <center>
-                        <h4 style="color: red;">{{$data->BSH_JUN2023_CORE_SM_6PGLabel}}</h4>
+                        <h4 style="color: #5c8d33;">{{$data->BSH_JUN2023_CORE_SM_6PGLabel}}</h4>
                     </center>
                     <div id="flipbook-container-response" class="container-response">
                         <div class="flipbook-container-third-mar">
@@ -2934,7 +2934,7 @@
                                                     alt=""/></a>
                     </div>
                     <center>
-                        <h4 style="color: red;">{{$data->BSH_JUL2023_CORE_SM_6PGLabel}}</h4>
+                        <h4 style="color: #5c8d33;">{{$data->BSH_JUL2023_CORE_SM_6PGLabel}}</h4>
                     </center>
                     <div id="flipbook-container-response" class="container-response">
                         <div class="flipbook-container-third-may">
@@ -3257,7 +3257,7 @@
                     @if($data->BSH_JUN2023_CORE_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_JUN2023_CORE_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_JUN2023_CORE_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/june_2023/hi_res/{{$data->BSH_JUN2023_CORE_PCResult1}}"
@@ -3281,7 +3281,7 @@
                     @if($data->BSH_Jun2023_Player_Party_PC)
                     <div class="col-sm-4">
                         <div class="modal-wrap">
-                            <h4 style="color: red;text-align: center;">{{$data->BSH_Jun2023_Player_Party_PCLabel}}</h4>
+                            <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Jun2023_Player_Party_PCLabel}}</h4>
 
                             <div class="slider-big">
                                 <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/june_2023/hi_res/{{$data->BSH_Jun2023_Player_Party_PCResult1}}"
@@ -3304,7 +3304,7 @@
                 @if($data->BSH_Jun2023_Hi_End_Gift_PC)
                 <div class="col-sm-4">
                     <div class="modal-wrap">
-                        <h4 style="color: red;text-align: center;">{{$data->BSH_Jun2023_Hi_End_Gift_PCLabel}}</h4>
+                        <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Jun2023_Hi_End_Gift_PCLabel}}</h4>
 
                         <div class="slider-big">
                             <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/june_2023/hi_res/{{$data->BSH_Jun2023_Hi_End_Gift_PCResult1}}"
@@ -3328,7 +3328,7 @@
             @if($data->BSH_Jun2023_Trop_LV_Event_PC)
             <div class="col-sm-4">
                 <div class="modal-wrap">
-                    <h4 style="color: red;text-align: center;">{{$data->BSH_Jun2023_Trop_LV_Event_PCLabel}}</h4>
+                    <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Jun2023_Trop_LV_Event_PCLabel}}</h4>
 
                     <div class="slider-big">
                         <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/june_2023/hi_res/{{$data->BSH_Jun2023_Trop_LV_Event_PCResult1}}"
@@ -3352,7 +3352,7 @@
         @if($data->BSH_JUN2023_INACTIVE_PC)
         <div class="col-sm-4">
             <div class="modal-wrap">
-                <h4 style="color: red;text-align: center;">{{$data->BSH_JUN2023_INACTIVE_PCLabel}}</h4>
+                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_JUN2023_INACTIVE_PCLabel}}</h4>
 
                 <div class="slider-big">
                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/june_2023/hi_res/{{$data->BSH_JUN2023_INACTIVE_PCResult1}}"
@@ -3376,7 +3376,7 @@
     @if($data->BSH_JUL2023_CORE_PC)
     <div class="col-sm-4">
         <div class="modal-wrap">
-            <h4 style="color: red;text-align: center;">{{$data->BSH_JUL2023_CORE_PCLabel}}</h4>
+            <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_JUL2023_CORE_PCLabel}}</h4>
 
             <div class="slider-big">
                 <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/july_2023/hi_res/{{$data->BSH_JUL2023_CORE_PCResult1}}"
@@ -3400,7 +3400,7 @@
         @if($data->BSH_JUL2023_SLOT_PULL_SM)
             <div class="col-sm-4">
                 <div class="modal-wrap">
-                    <h4 style="color: red;text-align: center;">{{$data->BSH_JUL2023_SLOT_PULL_SMLabel}}</h4>
+                    <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_JUL2023_SLOT_PULL_SMLabel}}</h4>
 
                     <div class="slider-big">
                         <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/july_2023/hi_res/{{$data->BSH_JUL2023_SLOT_PULL_SMResult1}}"
@@ -3435,7 +3435,7 @@
                     @if($data->BSH_Mar2023_Card_Tier_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_Mar2023_Card_Tier_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Mar2023_Card_Tier_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/march_2023/hi_res/{{$data->BSH_Mar2023_Card_Tier_PCResult1}}"
@@ -3459,7 +3459,7 @@
                     @if($data->BSH_Mar2023_Superstar_Party_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_Mar2023_Superstar_Party_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Mar2023_Superstar_Party_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/march_2023/hi_res/{{$data->BSH_Mar2023_Superstar_Party_PCResult1}}"
@@ -3483,7 +3483,7 @@
                     @if($data->BSH_APR2023_CORE_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_APR2023_CORE_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_APR2023_CORE_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/april_2023/hi_res/{{$data->BSH_APR2023_CORE_PCResult1}}"
@@ -3510,7 +3510,7 @@
                     @if($data->BSH_Apr2023_Cruise_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_Apr2023_Cruise_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Apr2023_Cruise_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/april_2023/hi_res/{{$data->BSH_Apr2023_Cruise_PCResult1}}"
@@ -3534,7 +3534,7 @@
                     @if($data->BSH_MAY2023_CORE_PC)
                     <div class="col-sm-4">
                         <div class="modal-wrap">
-                            <h4 style="color: red;text-align: center;">{{$data->BSH_MAY2023_CORE_PCLabel}}</h4>
+                            <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_MAY2023_CORE_PCLabel}}</h4>
 
                             <div class="slider-big">
                                 <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/may_2023/hi_res/{{$data->BSH_MAY2023_CORE_PCResult1}}"
@@ -3558,7 +3558,7 @@
                 @if($data->BSH_May2023_2nd_Chance_Cruise_PC)
                 <div class="col-sm-4">
                     <div class="modal-wrap">
-                        <h4 style="color: red;text-align: center;">{{$data->BSH_May2023_2nd_Chance_Cruise_PCLabel}}</h4>
+                        <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_May2023_2nd_Chance_Cruise_PCLabel}}</h4>
 
                         <div class="slider-big">
                             <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/may_2023/hi_res/{{$data->BSH_May2023_2nd_Chance_Cruise_PCResult1}}"
@@ -3583,7 +3583,7 @@
             @if($data->BSH_MAY2023_MINI_BAC_PC)
             <div class="col-sm-4">
                 <div class="modal-wrap">
-                    <h4 style="color: red;text-align: center;">{{$data->BSH_MAY2023_MINI_BAC_PCLabel}}</h4>
+                    <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_MAY2023_MINI_BAC_PCLabel}}</h4>
 
                     <div class="slider-big">
                         <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/may_2023/hi_res/{{$data->BSH_MAY2023_MINI_BAC_PCResult1}}"
@@ -3607,7 +3607,7 @@
                     @if($data->BSH_Mar2023_Legend_Party_Invite)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_Mar2023_Legend_Party_InviteLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Mar2023_Legend_Party_InviteLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/march_2023/hi_res/{{$data->BSH_Mar2023_Legend_Party_InviteResult1}}"
@@ -3643,7 +3643,7 @@
                     @if($data->FEB2023_CORE_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->FEB2023_CORE_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->FEB2023_CORE_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/february_2023/hi_res/{{$data->FEB2023_CORE_PCResult1}}"
@@ -3670,7 +3670,7 @@
                     @if($data->BSH_MAY2023_MYSTERY_PRIZE_DRAWING)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_MAY2023_MYSTERY_PRIZE_DRAWINGLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_MAY2023_MYSTERY_PRIZE_DRAWINGLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/may_2023/hi_res/{{$data->BSH_MAY2023_MYSTERY_PRIZE_DRAWINGResult1}}"
@@ -3694,7 +3694,7 @@
                     @if($data->BSH_Apr2023_Poker_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_Apr2023_Poker_PCLabel}} </h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_Apr2023_Poker_PCLabel}} </h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/april_2023/hi_res/{{$data->BSH_Apr2023_Poker_PCResult1}}"
@@ -3718,7 +3718,7 @@
                     @if($data->BSH_MAR2023_MINI_BAC_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_MAR2023_MINI_BAC_PCLabel}} </h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_MAR2023_MINI_BAC_PCLabel}} </h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/march_2023/hi_res/{{$data->BSH_MAR2023_MINI_BAC_PCResult1}}"
@@ -3745,7 +3745,7 @@
                     @if($data->BSH_MAY2023_MINI_BAC_TOURNEY_PC)
                         <div class="col-sm-4">
                             <div class="modal-wrap">
-                                <h4 style="color: red;text-align: center;">{{$data->BSH_MAY2023_MINI_BAC_TOURNEY_PCLabel}}</h4>
+                                <h4 style="color: #5c8d33;text-align: center;">{{$data->BSH_MAY2023_MINI_BAC_TOURNEY_PCLabel}}</h4>
 
                                 <div class="slider-big">
                                     <a href="https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/may_2023/hi_res/{{$data->BSH_MAY2023_MINI_BAC_TOURNEY_PCResult1}}"
@@ -3825,7 +3825,7 @@
                         alt="">
                     <h5 style="font-weight: 600;color: #232325;text-align:center;">
                         Welcome, {{ $data->first_name }} {{ $data->last_name}}</h5>
-                    <h5 style="font-weight: 600;color: white;text-align:center;background: red;">
+                    <h5 style="font-weight: 600;color: white;text-align:center;background: #5c8d33;">
                         Player Account: {{ $data->CSHRV_Account}}</h5>
 
                     <h6 style="color:red;text-align: center;"
@@ -3857,7 +3857,7 @@
                         alt="">
                     <h5 style="font-weight: 600;color: #232325;text-align:center;">
                         Welcome, {{ $data->first_name }} {{ $data->last_name}}</h5>
-                    <h5 style="font-weight: 600;color: white;text-align:center;background: red;">
+                    <h5 style="font-weight: 600;color: white;text-align:center;background: #5c8d33;">
                         Player Account: {{ $data->CSHRV_Account}}</h5>
                     <h6 style="color:red;text-align: center;"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><a
@@ -3888,7 +3888,7 @@
                         alt="">
                     <h5 style="font-weight: 600;color: #232325;text-align:center;">
                         Welcome, {{ $data->first_name }} {{ $data->last_name}}</h5>
-                    <h5 style="font-weight: 600;color: white;text-align:center;background: red;">
+                    <h5 style="font-weight: 600;color: white;text-align:center;background: #5c8d33;">
                         Player Account: {{ $data->CSHRV_Account}}</h5>
                     <h6 style="color:red;text-align: center;"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><a
@@ -3919,7 +3919,7 @@
                         alt="">
                     <h5 style="font-weight: 600;color: #232325;text-align:center;">
                         Welcome, {{ $data->first_name }} {{ $data->last_name}}</h5>
-                    <h5 style="font-weight: 600;color: white;text-align:center;background: red;">
+                    <h5 style="font-weight: 600;color: white;text-align:center;background: #5c8d33;">
                         Player Account: {{ $data->CSHRV_Account}}</h5>
                     <h6 style="color:red;text-align: center;"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><a
@@ -3948,7 +3948,7 @@
 
                     <h5 style="font-weight: 600;color: #232325;text-align:center;">
                         Welcome, {{ $data->first_name }} {{ $data->last_name}}</h5>
-                    <h5 style="font-weight: 600;color: white;text-align:center;background: red;">
+                    <h5 style="font-weight: 600;color: white;text-align:center;background: #5c8d33;">
                         Player Account: {{ $data->CSHRV_Account}}</h5>
                     <h6 style="color:red;text-align: center;"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><a

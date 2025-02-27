@@ -466,11 +466,11 @@ select {
 }
 
 .bx-prev:before:hover {
-  color: red;
+  color: #5c8d33;
 }
 
 fa:hover {
-  color: red;
+  color: #5c8d33;
 }
 
 .bx-wrapper .bx-prev {
@@ -836,17 +836,17 @@ ul{
 }
 
 .gform_wrapper div.validation_error {
-  color: red;
+  color: #5c8d33;
   margin: 5% 0%;
 }
 
 .gfield_error .validation_message {
   margin: -2% 0% 2% 0%;
-  color: red;
+  color: #5c8d33;
 }
 
 .gform_confirmation_message {
-  color: red;
+  color: #5c8d33;
   line-height: 1.5;
   font-size: 1.25em;
   margin-bottom: 5%;
@@ -1518,7 +1518,7 @@ button a:focus {
 /*
 @media only screen and (max-width: 667px) {
   body p {
-    color: red; } }
+    color: #5c8d33; } }
 
 /* iPhone 6 plus portrait */
 /*

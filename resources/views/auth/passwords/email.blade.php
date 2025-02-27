@@ -41,7 +41,7 @@
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-12 offset-md-4">
-                                        <button type="submit" class="btn btn-primary" style="background-color: red !important;">
+                                        <button type="submit" class="btn btn-primary" style="background-color: #5c8d33 !important;">
                                             Send Password Reset Link
                                         </button>
                                     </div>
@@ -56,7 +56,7 @@
     </div>
     <div class="row" style="padding-bottom: 30px">
         <div class="col-sm-6"><a href="admin/login">Already have and account? Login Now!</a></div>
-        <div class="col-sm-6"> Powered By Perfect Communications Services
+        <div class="col-sm-6"> Powered By Digital Dog Direct
         </div>
     </div>
     </div>

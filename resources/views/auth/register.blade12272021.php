@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="col-sm-6 "><a href="login">Already have an account, login now!</a></div>
-            <div class="col-sm-6 text-right"> Powered By Perfect Communications Services
+            <div class="col-sm-6 text-right"> Powered By Digital Dog Direct
             </div>
         </div>
 @endsection

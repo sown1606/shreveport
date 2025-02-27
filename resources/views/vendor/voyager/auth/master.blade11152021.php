@@ -18,25 +18,25 @@
             background-color: {{ Voyager::setting("admin.bg_color", "#FFFFFF" ) }};
         }
         body.login .login-sidebar {
-            border-top:5px solid {{ config('voyager.primary_color','#22A7F0') }};
+            border-top:5px solid {{ config('voyager.primary_color','#5c8d33') }};
         }
         @media (max-width: 767px) {
             body.login .login-sidebar {
                 border-top:0px !important;
-                border-left:5px solid {{ config('voyager.primary_color','#22A7F0') }};
+                border-left:5px solid {{ config('voyager.primary_color','#5c8d33') }};
             }
         }
         body.login .form-group-default.focused{
-            border-color:{{ config('voyager.primary_color','#22A7F0') }};
+            border-color:{{ config('voyager.primary_color','#5c8d33') }};
         }
         .login-button, .bar:before, .bar:after{
-            background:{{ config('voyager.primary_color','#22A7F0') }};
+            background:{{ config('voyager.primary_color','#5c8d33') }};
         }
         .remember-me-text{
             padding:0 5px;
         }
     </style>
-    
+
     @yield('pre_css')
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 </head>

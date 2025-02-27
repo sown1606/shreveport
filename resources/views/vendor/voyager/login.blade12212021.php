@@ -15,7 +15,7 @@
                             Up"</a> button to create your online account.
                     </p>
                         @if($errors->has('email') || $errors->has('user_name'))
-                            <span style="color: red">{{$errors->first('email') }} {{ $errors->first('user_name')}}</span>
+                            <span style="color: #5c8d33">{{$errors->first('email') }} {{ $errors->first('user_name')}}</span>
                         @endif
                     <form action="{{ route('voyager.login') }}" method="POST"
                           style="    width: 60%;    margin: 0 auto;">
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="col-sm-6"><a href="register">Do not have an account? Sign Up now!</a></div>
-            <div class="col-sm-6"> Powered By Perfect Communications Services
+            <div class="col-sm-6"> Powered By Digital Dog Direct
             </div>
         </div>
 @endsection

@@ -1,5 +1,5 @@
 <footer class="app-footer">
     <div class="site-footer-right">
-        Powered By Perfect Communications Services
+        Powered By Digital Dog Direct
     </div>
 </footer>

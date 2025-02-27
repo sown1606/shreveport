@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         <p style="text-align: center;font-weight: 700">By providing your email address, you agree to
-                            receive marketing emails from Bally's Shreveport</p>
+                            receive marketing emails from Bally's Digital Dog Direct</p>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 offset-md-4">
@@ -159,7 +159,7 @@
             <div class="col-md-2"></div>
             <div class="row" style="padding-bottom: 30px">
                 <div class="col-sm-6 "><a href="login">Already have an account? Login now!</a></div>
-                <div class="col-sm-6"> Powered By Perfect Communications Services
+                <div class="col-sm-6"> Powered By Digital Dog Direct
                 </div>
             </div>
         </div>
