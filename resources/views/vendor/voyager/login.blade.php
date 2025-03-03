@@ -1,75 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="text-align: center; margin: 0 auto; max-width: 500px; padding-bottom: 50px">
-        <div class="card-body" style="padding: 40px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div class="container" style="max-width: 400px; margin: 0 auto; padding: 40px 0; text-align: center;">
+        <div class="card-body" style="padding: 30px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+
+            {{-- Thông báo session --}}
             @if(session()->has('message'))
-                <div class="alert alert-success" style="background: #d4edda; color: #155724; padding: 10px">
+                <div class="alert alert-success">
                     {{ session()->get('message') }}
                 </div>
             @endif
 
-            <p style="margin-bottom: 20px; font-size: 16px; color: #333;">
-                Enter your Username and your password to sign in. <br><br>
-                If you have a Players Club Account and this is your first time signing in, click on the
-                <a href="register" style="color: #5c8d33; text-decoration: none; font-weight: bold;">"Sign Up"</a>
-                Link to create your online account.
-            </p>
-
-            @if($errors->has('email') || $errors->has('user_name'))
-                <span style="color: #5c8d33; font-weight: bold;">{{$errors->first('email') }} {{ $errors->first('user_name')}}</span>
-            @endif
-
+            {{-- Form login --}}
             <form action="{{ route('voyager.login') }}" method="POST" style="width: 100%;">
-                {{ csrf_field() }}
+                @csrf
+                <h3 style="margin-bottom: 20px;">Sign In</h3>
 
+                @if($errors->has('user_name'))
+                    <span style="color: red; display: block; margin-bottom: 10px;">
+                    {{ $errors->first('user_name') }}
+                </span>
+                @endif
                 <div style="margin-bottom: 15px;">
-                    <input type="text" name="user_name" id="user_name"
-                           value="{{ old('user_name') }}" placeholder="Username or Email"
-                           class="form-control @if($errors->has('email') || $errors->has('user_name')) has-error @endif"
+                    <input type="text"
+                           name="user_name"
+                           id="user_name"
+                           placeholder="Account"
+                           value="{{ old('user_name') }}"
                            required
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; transition: 0.3s;">
+                           class="form-control @error('user_name') is-invalid @enderror"
+                           style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <input type="password" name="password" placeholder="Password" class="form-control" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ccc; transition: 0.3s;">
+                    <input type="password"
+                           name="password"
+                           placeholder="Password"
+                           required
+                           class="form-control"
+                           style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
 
-                <div style="margin-bottom: 10px;">
-                    <a href="/forget-password" style="color: #5c8d33; text-decoration: none; font-size: 14px;">Forgot password?</a>
+                <div style="text-align: right; margin-bottom: 15px;">
+                    <a href="/forget-password" style="font-size: 14px; color: #5c8d33; text-decoration: none;">
+                        Recover Password
+                    </a>
                 </div>
 
-                <div style="margin-bottom: 15px;">
-                    <input type="checkbox" name="remember" id="remember" value="1">
-                    <label for="remember" style="font-size: 14px; color: #555;">{{ __('voyager::generic.remember_me') }}</label>
-                </div>
-
-                <button type="submit" style="width: 100%; padding: 10px; background: #5c8d33; color: white; border: none; font-size: 16px; cursor: pointer; transition: 0.3s;">
-                    <span class="signingin"><span class="voyager-refresh"></span> Login</span>
+                <button type="submit"
+                        style="width: 100%; padding: 10px; background: #5c8d33; color: #fff; border: none; cursor: pointer;">
+                    Sign In
                 </button>
+
+                {{-- Dòng trống 2-3 hàng, tuỳ ý --}}
+                <div style="height: 30px;"></div>
+
+                <div style="margin-top: 10px;">
+                    Do not have an account?
+                    <a href="register" style="color: #5c8d33; font-weight: bold;">Sign Up Now!</a>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    Powered by Digital Dog Direct Web Services
+                </div>
+
             </form>
-
-        </div>
-
-        <div style="margin-top: 20px; font-size: 14px;">
-            <a href="register" style="color: #5c8d33; text-decoration: none; font-weight: bold;">Do not have an account? Sign Up now!</a>
-        </div>
-
-        <div style="margin-top: 10px; font-size: 14px; color: #777;">
-            Powered By Digital Dog Direct
         </div>
     </div>
-
+    {{-- Style tuỳ ý --}}
     <style>
         input:focus {
-            border: 2px solid black !important;
+            border-color: #000 !important;
+            outline: none;
         }
-
         button:hover {
-            background: white !important;
+            background: #fff !important;
             color: #5c8d33 !important;
             border: 1px solid #5c8d33 !important;
+        }
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px 10px;
+            }
         }
     </style>
 @endsection

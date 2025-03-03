@@ -11212,3 +11212,50 @@ wix-media-canvas {
     display: var(--divider-bottom-layer-3-display, block)
 }
 
+//* Định dạng menu chính */
+.wixui-dropdown-menu__item {
+    position: relative;
+    display: inline-block;
+}
+
+/* Ẩn menu con mặc định */
+.wixui-dropdown-menu__item ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    z-index: 9999;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiển thị menu con khi hover vào mục cha */
+.wixui-dropdown-menu__item:hover > ul {
+    display: block !important;
+}
+
+/* Định dạng các mục trong menu con */
+.wixui-dropdown-menu__item ul li {
+    padding: 10px;
+    white-space: nowrap; /* Đảm bảo không bị ngắt dòng */
+}
+
+.wixui-dropdown-menu__item ul li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* Hiệu ứng hover cho các mục con */
+.wixui-dropdown-menu__item ul li a:hover {
+    background: #f0f0f0;
+    color: #0073e6;
+}
+

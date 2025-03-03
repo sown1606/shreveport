@@ -16,19 +16,14 @@
     <link href="/weekender_assets/css/modal_lightbox.min.css" rel="stylesheet">
     <link href="/weekender_assets/css/modal_style.css" rel="stylesheet">
     <style>
-        .loader {
-            position: fixed;
-            left: 0px;
-            top: 0px;
-            width: 100%;
-            height: 100%;
-            z-index: 9999999;
-            background: url('/loading.gif') 50% 50% no-repeat rgb(255, 255, 255);
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
     </style>
 </head>
 <body>
-<div class="loader"></div>
 <div id="SITE_CONTAINER">
     <div id="main_MF" class="main_MF">
         <button id="SKIP_TO_CONTENT_BTN" class="SKIP_TO_CONTENT_BTN LHrbPP has-custom-focus" tabindex="0">Skip to Main
@@ -570,11 +565,11 @@
     </div>
 </div>
 <link href="/digitalDogDirectAssets/styles.css" rel="stylesheet">
-
-</body>
 <script>
-    $(window).load(function () {
-        $(".loader").fadeOut("slow");
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.style.visibility = "visible";
+        document.body.style.opacity = "1";
     });
 </script>
+</body>
 </html>

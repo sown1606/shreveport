@@ -1,63 +1,79 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="container" style="text-align: center; background: #fff; margin: 0 auto;padding-top:20px">
-    <div class="row justify-content-center">
-        @if (\Session::has('message'))
-            <div class="alert alert-success">
-                <ul style="list-style-type: none; text-align: center;">
-                    <li>{!! \Session::get('message') !!}</li>
-                </ul>
-            </div>
-        @else
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">Reset Password</div>
-                        Enter your email to get recovery link.
-                        <div class="card-body">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
+    <div class="container" style="max-width: 400px; margin: 0 auto; padding: 40px 0; text-align: center;">
+        <div class="card-body" style="background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
 
-                            <form method="POST" action="/forget-password">
-                                @csrf
-                                <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail
-                                        Address</label>
-                                    <div class="col-md-6">
-                                        <input id="email" type="email"
-                                               class="form-control @error('email') is-invalid @enderror" name="email"
-                                               value="{{ old('email') }}" autocomplete="email" autofocus>
-
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-12 offset-md-4">
-                                        <button type="submit" class="btn btn-primary" style="background-color: #5c8d33 !important;">
-                                            Send Password Reset Link
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    <ul style="list-style-type: none; text-align: center; margin: 0; padding: 0;">
+                        <li>{!! session('message') !!}</li>
+                    </ul>
                 </div>
-            <div class="col-md-2"></div>
+            @else
+                <h3 style="margin-bottom: 20px;">Reset Password</h3>
+                <p style="margin-bottom: 20px;">
+                    Enter your email to receive a password recovery link.
+                </p>
 
-        @endif
-    </div>
-    <div class="row" style="padding-bottom: 30px">
-        <div class="col-sm-6"><a href="admin/login">Already have and account? Login Now!</a></div>
-        <div class="col-sm-6"> Powered By Digital Dog Direct
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert" style="margin-bottom: 15px;">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <form method="POST" action="/forget-password" style="width: 100%;">
+                    @csrf
+                    @error('email')
+                    <div style="color: red; margin-bottom: 15px;">{{ $message }}</div>
+                    @enderror
+                    <div style="margin-bottom: 15px;">
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               value="{{ old('email') }}"
+                               placeholder="Your Email Address"
+                               class="form-control @error('email') is-invalid @enderror"
+                               style="width: 100%; padding: 10px; border: 1px solid #ccc;"
+                               autocomplete="email" autofocus>
+                    </div>
+                    <button type="submit"
+                            class="btn btn-primary"
+                            style="width: 100%; padding: 10px; background: #5c8d33; color: #fff; border: none; cursor: pointer;">
+                        Send Password Reset Link
+                    </button>
+                </form>
+            @endif
+
+            {{-- Khoảng trống tuỳ ý --}}
+            <div style="height: 30px;"></div>
+
+            <div>
+                <a href="{{ url('admin/login') }}" style="color: #5c8d33; text-decoration: none; font-weight: bold;">
+                    Already have an account? Login Now!
+                </a>
+            </div>
+            <div style="margin-top: 10px;">
+                Powered By Digital Dog Direct Web Services
+            </div>
         </div>
     </div>
-    </div>
+
+    {{-- Style tùy chỉnh --}}
+    <style>
+        input:focus {
+            border-color: #000 !important;
+            outline: none;
+        }
+        button:hover {
+            background: #fff !important;
+            color: #5c8d33 !important;
+            border: 1px solid #5c8d33 !important;
+        }
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px 10px;
+            }
+        }
+    </style>
 @endsection
