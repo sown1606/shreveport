@@ -3,71 +3,86 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Data;
-use App\Flipbook;
-use App\Http\Controllers\Controller;
-use App\Mail\WelcomeMail;
-use Illuminate\Http\Request;
 use App\User;
-use Hash;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Mail;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
 
 class RegisterController extends Controller
 {
     public function register()
     {
-
         return view('auth.register');
     }
 
     public function storeUser(Request $request)
     {
+        // Bổ sung 'name' (full_name) vào danh sách validation
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'user_name' => 'required|string|max:255|unique:users',
-            'birthday' => 'required',
+            'account' => 'required|string|max:40|unique:users,Player_ID',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'CSHRV_Player_ID' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required',
         ],
             [
-                'CSHRV_Player_ID.unique' => 'Sorry, This Account ID is already register with our system. Please contact guest services.',
-                'email.unique' => 'Sorry, This Email Address is already used by another user. Please try with different one, Thanks.',
-                'user_name.unique' => 'Sorry, This User Name is already used by another user. Please try with different one, Thanks.',
+                'account.unique' => 'Sorry, this Account ID is already registered in our system. Please contact guest services.',
+                'email.unique' => 'Sorry, this Email Address is already used by another user. Please try with a different one, Thanks.',
             ]);
 
-        //check if user register right birthday and CSHRV_Player_ID
-        $checkAccount = Data::where('CSHRV_Player_ID', $request->CSHRV_Player_ID)
-            ->where('CSHRV_DOB', $request->birthday)->first();
+        // Kiểm tra xem Account ID có tồn tại trong bảng Datas hay không
+        $checkAccount = Data::where('Player_ID', $request->account)->first();
         if (!$checkAccount) {
-            throw ValidationException::withMessages(['No_Match_Up' => 'Your Account Combined ID or Birthday does not match our records
-. Please contact guest services.']);
+            throw ValidationException::withMessages([
+                'No_Match_Up' => 'Your Account ID does not match our records. Please contact guest services.',
+            ]);
         }
-        User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'user_name' => $request->user_name,
+
+        // Lấy thông tin FName, LName, DOB từ bảng Datas
+        $firstName = $checkAccount->FName ?? '';
+        $lastName = $checkAccount->LName ?? '';
+        $dob = $checkAccount->DOB ?? null;
+        $tier = $checkAccount->Tier ?? 'Standard';
+        $points = $checkAccount->Points ?? 0;
+
+        // Tạo user mới
+        $user = User::create([
+            'Player_ID' => $request->account,
+            // Lấy FName, LName từ bảng Datas
+            'FName' => $firstName,
+            'LName' => $lastName,
+            'DOB'       => $dob,
+
+            // Lấy Full Name do người dùng nhập
+            'Fullname'  => $request->name,
             'email' => $request->email,
             'role_id' => 2,
             'password' => Hash::make($request->password),
-            'CSHRV_Player_ID' => $request->CSHRV_Player_ID,
-            'CSHRV_LName' => $checkAccount->CSHRV_LName,
-            'CSHRV_FName' => $checkAccount->CSHRV_FName,
-            'CSHRV_MI' => $checkAccount->CSHRV_MI,
-            'CSHRV_Tier' => $checkAccount->CSHRV_Tier,
-            'CSHRV_MTD_Points' => $checkAccount->CSHRV_MTD_Points,
-            'CSHRV_Points_Next_Tier' => $checkAccount->CSHRV_Points_Next_Tier,
-            'CSHRV_Host_Name' => $checkAccount->CSHRV_Host_Name,
-            'CSHRV_Host_ID' => $checkAccount->CSHRV_Host_ID,
-            'CSHRV_Time_Stamp' => $request->CSHRV_Time_Stamp,
-            'CSHRV_DOB' => Carbon::parse($request->birthday),
         ]);
-        Mail::to($request->email)->send(new WelcomeMail($request));
 
-        return redirect('admin/login')->with('message', 'Register Completed! Please login use your username or your email.');
+        $user->Tier = $tier;
+        $user->Points = $points;
+        // Gửi email chào mừng (tuỳ chỉnh nội dung trong WelcomeMail)
+        Mail::to($request->email)->send(new WelcomeMail($user));
+
+        return redirect('login')->with('message', 'Registration completed! Please login using your account ID.');
     }
 
+    public function login(Request $request)
+    {
+        $request->validate([
+            'account' => 'required|string|max:40',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if (Auth::attempt(['Player_ID' => $request->account, 'password' => $request->password])) {
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withErrors(['login_error' => 'Invalid account or password.']);
+    }
 }

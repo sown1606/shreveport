@@ -52,13 +52,13 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
         $data = new \stdClass();
         $data->first_name = '';
         $data->last_name = '';
-        $data->CSHRV_Account = $accountId;
-        $data->CSHRV_Tier = '';
-        $data->CSHRV_MTD_Points = 0;
-        $data->CSHRV_Points = 0;
-        $data->CSHRV_Comp_Dollars = 0;
-        $data->CSHRV_Points_Next_Tier = 0;
-        $data->CSHRV_Poker_Rating = 0;
+        $data->Account = $accountId;
+        $data->Tier = '';
+        $data->MTD_Points = 0;
+        $data->Points = 0;
+        $data->Comp_Dollars = 0;
+        $data->Points_Next_Tier = 0;
+        $data->Poker_Rating = 0;
         $data->updated_at = now();
 
         //Flag to check if have SM or PC data
@@ -66,17 +66,17 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
         $data->flgPC = 0;
 
         //Get data from Datas table
-        $datas = Data::where('CSHRV_Player_ID', $accountId)->first();
+        $datas = Data::where('Player_ID', $accountId)->first();
         if ($datas) {
-            $data->first_name = $datas->CSHRV_FName;
-            $data->last_name = $datas->CSHRV_LName;
-            $data->CSHRV_Tier = $datas->CSHRV_Tier;
-            $data->CSHRV_MTD_Points = $datas->CSHRV_MTD_Points;
-            if($datas->CSHRV_Points !== '')
-            $data->CSHRV_Points = $datas->CSHRV_Points;
-            $data->CSHRV_Comp_Dollars = $datas->CSHRV_Comp_Dollars;
-            $data->CSHRV_Points_Next_Tier = $datas->CSHRV_Points_Next_Tier;
-            $data->CSHRV_Poker_Rating = $datas->CSHRV_Poker_Rating;
+            $data->first_name = $datas->FName;
+            $data->last_name = $datas->LName;
+            $data->Tier = $datas->Tier;
+            $data->MTD_Points = $datas->MTD_Points;
+            if($datas->Points !== '')
+            $data->Points = $datas->Points;
+            $data->Comp_Dollars = $datas->Comp_Dollars;
+            $data->Points_Next_Tier = $datas->Points_Next_Tier;
+            $data->Poker_Rating = $datas->Poker_Rating;
         }
                $data->JanuaryPC = 0;
                $data->JanuaryPCLabel = '';
@@ -86,53 +86,53 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
                $data->JanuarySMLabel = '';
                $data->JanuaryPlayPC = 0;
                $data->JanuaryPlayPCLabel = '';
-        
-               $dataFromJanuary2021 = JanuaryCore::where('CSHRV_Account', $accountId)->get();
-               if ($dataFromJanuary2021) 
+
+               $dataFromJanuary2021 = JanuaryCore::where('Account', $accountId)->get();
+               if ($dataFromJanuary2021)
                 {
-                   foreach ($dataFromJanuary2021 as $singleDataFromJanuary2021) 
+                   foreach ($dataFromJanuary2021 as $singleDataFromJanuary2021)
                    {
-                    if ($singleDataFromJanuary2021->CSHRV_Mailer_Type === "Play_PC") 
+                    if ($singleDataFromJanuary2021->Mailer_Type === "Play_PC")
                     {
                         $data->JanuaryPlayPC = 1;
-                        $data->JanuaryPlayPCLabel = $singleDataFromJanuary2021->CSHRV_Label;
+                        $data->JanuaryPlayPCLabel = $singleDataFromJanuary2021->Label;
                         $data->flgPC =1;
-                        $data->JanuaryPlayPCResult1 = $singleDataFromJanuary2021->CSHRV_Img_Page01 . ".jpg";
-                        $data->JanuaryPlayPCResult2 = $singleDataFromJanuary2021->CSHRV_Img_Page02 . ".jpg";
-                        
+                        $data->JanuaryPlayPCResult1 = $singleDataFromJanuary2021->Img_Page01 . ".jpg";
+                        $data->JanuaryPlayPCResult2 = $singleDataFromJanuary2021->Img_Page02 . ".jpg";
+
                     }
-                    if ($singleDataFromJanuary2021->CSHRV_Mailer_Type === "CRUISE_PC") 
+                    if ($singleDataFromJanuary2021->Mailer_Type === "CRUISE_PC")
                     {
                         $data->JanuaryCruisePC = 1;
-                        $data->JanuaryCruisePCLabel = $singleDataFromJanuary2021->CSHRV_Label;
+                        $data->JanuaryCruisePCLabel = $singleDataFromJanuary2021->Label;
                         $data->flgPC =1;
-                        $data->JanuaryCruisePCResult1 = $singleDataFromJanuary2021->CSHRV_Img_Page01 . ".jpg";
-                        $data->JanuaryCruisePCResult2 = $singleDataFromJanuary2021->CSHRV_Img_Page02 . ".jpg";
-                        
+                        $data->JanuaryCruisePCResult1 = $singleDataFromJanuary2021->Img_Page01 . ".jpg";
+                        $data->JanuaryCruisePCResult2 = $singleDataFromJanuary2021->Img_Page02 . ".jpg";
+
                     }
-                       if ($singleDataFromJanuary2021->CSHRV_Mailer_Type === "Core_PC") 
+                       if ($singleDataFromJanuary2021->Mailer_Type === "Core_PC")
                        {
                            $data->JanuaryPC = 1;
-                           $data->JanuaryPCLabel = $singleDataFromJanuary2021->CSHRV_Label;
+                           $data->JanuaryPCLabel = $singleDataFromJanuary2021->Label;
                            $data->flgPC =1;
-                           $data->JanuaryCorePCResult1 = $singleDataFromJanuary2021->CSHRV_Img_Page01 . ".jpg";
-                           $data->JanuaryCorePCResult2 = $singleDataFromJanuary2021->CSHRV_Img_Page02 . ".jpg";
-                           
+                           $data->JanuaryCorePCResult1 = $singleDataFromJanuary2021->Img_Page01 . ".jpg";
+                           $data->JanuaryCorePCResult2 = $singleDataFromJanuary2021->Img_Page02 . ".jpg";
+
                        }
-                       if ($singleDataFromJanuary2021->CSHRV_Mailer_Type === "Core_SM") 
+                       if ($singleDataFromJanuary2021->Mailer_Type === "Core_SM")
                        {
                             $data->JanuarySM = 0 ;
-                            $data->JanuarySMLabel = $singleDataFromJanuary2021->CSHRV_Label;
+                            $data->JanuarySMLabel = $singleDataFromJanuary2021->Label;
                            $data->flgSM =1;
-                           $data->JanuaryCoreSMResult1 = $singleDataFromJanuary2021->CSHRV_Img_Page01 . ".jpg";
-                           $data->JanuaryCoreSMResult2 = $singleDataFromJanuary2021->CSHRV_Img_Page02 . ".jpg";
-                           $data->JanuaryCoreSMResult3 = $singleDataFromJanuary2021->CSHRV_Img_Page03 . ".jpg";
-                           $data->JanuaryCoreSMResult4 = $singleDataFromJanuary2021->CSHRV_Img_Page04 . ".jpg";
-                           $data->JanuaryCoreSMResult5 = $singleDataFromJanuary2021->CSHRV_Img_Page05 . ".jpg";
-                           $data->JanuaryCoreSMResult6 = $singleDataFromJanuary2021->CSHRV_Img_Page06 . ".jpg";
-                           
+                           $data->JanuaryCoreSMResult1 = $singleDataFromJanuary2021->Img_Page01 . ".jpg";
+                           $data->JanuaryCoreSMResult2 = $singleDataFromJanuary2021->Img_Page02 . ".jpg";
+                           $data->JanuaryCoreSMResult3 = $singleDataFromJanuary2021->Img_Page03 . ".jpg";
+                           $data->JanuaryCoreSMResult4 = $singleDataFromJanuary2021->Img_Page04 . ".jpg";
+                           $data->JanuaryCoreSMResult5 = $singleDataFromJanuary2021->Img_Page05 . ".jpg";
+                           $data->JanuaryCoreSMResult6 = $singleDataFromJanuary2021->Img_Page06 . ".jpg";
+
                        }
-        
+
                    }
                 }
 
@@ -153,24 +153,24 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
        $data->NovemberMYSTERYPCLabel = '';
 
 
-       $dataFromNovember2021 = NovemberCore::where('CSHRV_Account', $accountId)->get();
-       if ($dataFromNovember2021) 
+       $dataFromNovember2021 = NovemberCore::where('Account', $accountId)->get();
+       if ($dataFromNovember2021)
         {
            foreach ($dataFromNovember2021 as $singleDataFromNovember2021) {
                //CoreSM
-               if ($singleDataFromNovember2021->CSHRV_Mailer_Type === "Core SM") {
+               if ($singleDataFromNovember2021->Mailer_Type === "Core SM") {
                    $data->NovemberCoreSM = 0;
-                   $data->NovemberCoreSMLabel = $singleDataFromNovember2021->CSHRV_Label;
+                   $data->NovemberCoreSMLabel = $singleDataFromNovember2021->Label;
                    $data->flgSM =1;
 
-                   $data->NovemberCoreSMResult1 = $singleDataFromNovember2021->CSHRV_Img_Page01 . ".jpg";
-                   $data->NovemberCoreSMResult2 = $singleDataFromNovember2021->CSHRV_Img_Page02 . ".jpg";
-                   $data->NovemberCoreSMResult3 = $singleDataFromNovember2021->CSHRV_Img_Page03 . ".jpg";
-                   $data->NovemberCoreSMResult4 = $singleDataFromNovember2021->CSHRV_Img_Page04 . ".jpg";
-                   $data->NovemberCoreSMResult5 = $singleDataFromNovember2021->CSHRV_Img_Page05 . ".jpg";
-                   $data->NovemberCoreSMResult6 = $singleDataFromNovember2021->CSHRV_Img_Page06 . ".jpg";
-                   $data->NovemberCoreSMResult7 = $singleDataFromNovember2021->CSHRV_Img_Page07 . ".jpg";
-                   $data->NovemberCoreSMResult8 = $singleDataFromNovember2021->CSHRV_Img_Page08 . ".jpg";
+                   $data->NovemberCoreSMResult1 = $singleDataFromNovember2021->Img_Page01 . ".jpg";
+                   $data->NovemberCoreSMResult2 = $singleDataFromNovember2021->Img_Page02 . ".jpg";
+                   $data->NovemberCoreSMResult3 = $singleDataFromNovember2021->Img_Page03 . ".jpg";
+                   $data->NovemberCoreSMResult4 = $singleDataFromNovember2021->Img_Page04 . ".jpg";
+                   $data->NovemberCoreSMResult5 = $singleDataFromNovember2021->Img_Page05 . ".jpg";
+                   $data->NovemberCoreSMResult6 = $singleDataFromNovember2021->Img_Page06 . ".jpg";
+                   $data->NovemberCoreSMResult7 = $singleDataFromNovember2021->Img_Page07 . ".jpg";
+                   $data->NovemberCoreSMResult8 = $singleDataFromNovember2021->Img_Page08 . ".jpg";
                }
 
            }
@@ -182,30 +182,30 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
        $data->FebruaryCoreSMLabel = '';
 
 
-       $dataFromFebruary2021 = FebruaryCore::where('CSHRV_Account', $accountId)->get();
-       if ($dataFromFebruary2021) 
+       $dataFromFebruary2021 = FebruaryCore::where('Account', $accountId)->get();
+       if ($dataFromFebruary2021)
         {
            foreach ($dataFromFebruary2021 as $singleDataFromFebruary2021) {
                //CorePC
-               if ($singleDataFromFebruary2021->CSHRV_Mailer_Type === "CORE_PC") {
+               if ($singleDataFromFebruary2021->Mailer_Type === "CORE_PC") {
                    $data->FebruaryCorePC = 1;
-                   $data->FebruaryCorePCLabel = $singleDataFromFebruary2021->CSHRV_Label;
+                   $data->FebruaryCorePCLabel = $singleDataFromFebruary2021->Label;
                    $data->flgPC =1;
-                   $data->FebruaryCorePCResult1 = $singleDataFromFebruary2021->CSHRV_Img_Page01 . ".jpg";
-                   $data->FebruaryCorePCResult2 = $singleDataFromFebruary2021->CSHRV_Img_Page02 . ".jpg";
-                   
+                   $data->FebruaryCorePCResult1 = $singleDataFromFebruary2021->Img_Page01 . ".jpg";
+                   $data->FebruaryCorePCResult2 = $singleDataFromFebruary2021->Img_Page02 . ".jpg";
+
                }
-               if ($singleDataFromFebruary2021->CSHRV_Mailer_Type === "CORE_SM") {
+               if ($singleDataFromFebruary2021->Mailer_Type === "CORE_SM") {
                 $data->FebruaryCoreSM = 1;
-                $data->FebruaryCoreSMLabel = $singleDataFromFebruary2021->CSHRV_Label;
+                $data->FebruaryCoreSMLabel = $singleDataFromFebruary2021->Label;
                 $data->flgSM =1;
-                $data->FebruaryCoreSMResult1 = $singleDataFromFebruary2021->CSHRV_Img_Page01 . ".jpg";
-                $data->FebruaryCoreSMResult2 = $singleDataFromFebruary2021->CSHRV_Img_Page02 . ".jpg";
-                $data->FebruaryCoreSMResult3 = $singleDataFromFebruary2021->CSHRV_Img_Page03 . ".jpg";
-                $data->FebruaryCoreSMResult4 = $singleDataFromFebruary2021->CSHRV_Img_Page04 . ".jpg";
-                $data->FebruaryCoreSMResult5 = $singleDataFromFebruary2021->CSHRV_Img_Page05 . ".jpg";
-                $data->FebruaryCoreSMResult6 = $singleDataFromFebruary2021->CSHRV_Img_Page06 . ".jpg";
-                
+                $data->FebruaryCoreSMResult1 = $singleDataFromFebruary2021->Img_Page01 . ".jpg";
+                $data->FebruaryCoreSMResult2 = $singleDataFromFebruary2021->Img_Page02 . ".jpg";
+                $data->FebruaryCoreSMResult3 = $singleDataFromFebruary2021->Img_Page03 . ".jpg";
+                $data->FebruaryCoreSMResult4 = $singleDataFromFebruary2021->Img_Page04 . ".jpg";
+                $data->FebruaryCoreSMResult5 = $singleDataFromFebruary2021->Img_Page05 . ".jpg";
+                $data->FebruaryCoreSMResult6 = $singleDataFromFebruary2021->Img_Page06 . ".jpg";
+
             }
 
            }
@@ -220,7 +220,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             return Voyager::view('voyager::index');
         else {
             //get user data and get data
-            $data = $this->getDataByAccountId(Auth::user()->CSHRV_Player_ID);
+            $data = $this->getDataByAccountId(Auth::user()->Player_ID);
             return view('player-dashboard')->with('data', $data);
         }
     }

@@ -23,56 +23,33 @@ class VoyagerAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-
         $this->validate($request, [
-            $this->email() => 'required', 'password' => 'required',
+            $this->email() => 'required',
+            'password' => 'required',
         ]);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the user_name and
-        // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-
             return $this->sendLockoutResponse($request);
         }
 
         $credentials = $request->only($this->email(), 'password');
-        //disable normal user login
-//        if (array_key_exists("user_name",$credentials))
-//        {
-//            if(!($credentials['user_name'] === 'admin') && !($credentials['user_name'] === 'SuperUser'))
-//                return $this->sendFailedLoginResponse($request);
-//        } else {
-//            if(!($credentials['email'] === 'admin@admin.com') && !($credentials['email'] === 'SuperUser@SuperUser.com'))
-//                return $this->sendFailedLoginResponse($request);
-//        }
 
+        // Thử đăng nhập
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             return $this->sendLoginResponse($request);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
+        // Tăng số lần đăng nhập sai
         $this->incrementLoginAttempts($request);
-
         return $this->sendFailedLoginResponse($request);
     }
 
-    /*
-     * Preempts $redirectTo member variable (from RedirectsUsers trait)
-     */
     public function redirectTo()
     {
         return config('voyager.user.redirect', route('voyager.dashboard'));
     }
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
     protected function guard()
     {
         return Auth::guard(app('VoyagerGuard'));
@@ -80,8 +57,51 @@ class VoyagerAuthController extends Controller
 
     public function email()
     {
-        $field = (filter_var(request()->user_name, FILTER_VALIDATE_EMAIL) || !request()->user_name) ? 'email' : 'user_name';
-        request()->merge([$field => request()->user_name]);
+        // Mặc định code cũ:
+        // $field = (filter_var(request()->Player_ID, FILTER_VALIDATE_EMAIL) || !request()->Player_ID) ? 'email' : 'Player_ID';
+        // request()->merge([$field => request()->Player_ID]);
+        // return $field;
+
+        // => Ở đây, nếu request()->Player_ID là email => $field = 'email'
+        //    nếu request()->Player_ID không phải email => $field = 'Player_ID'
+        //    => Tức là cho phép đăng nhập bằng email HOẶC Player_ID
+        //
+        // Nhưng trong cơ sở dữ liệu, admin user có 'Player_ID' = 'admin'
+        // Chúng ta có 'Player_ID' chứ không còn 'Player_ID'?
+        //
+        // Thông thường, Voyager admin login là 1-2 user admin, chứ ko phải logic Player ID.
+        // Nên code cũ vẫn OK nếu admin user có Player_ID = 'admin'
+        //
+        // Nếu bạn muốn thay "Player_ID" = "Player_ID" cho admin,
+        // thì thay logic này như sau:
+        //
+        // $login = request()->input('Player_ID');
+        // if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+        //     $field = 'email';
+        // } else {
+        //     $field = 'Player_ID';
+        // }
+        // request()->merge([$field => $login]);
+        // return $field;
+        //
+        // => Cho phép đăng nhập admin qua email HOẶC Player_ID.
+        //
+        // Tuy nhiên, cẩn thận:
+        //   - Thông thường admin account do CMS auto-tạo,
+        //   - Còn "Player_ID" dành cho user.
+        //   - Vậy admin login khác user login.
+        //   - Ta nên kiểm soát 2 logic khác nhau.
+        //
+        // Tùy bạn, dưới đây mình giả sử admin vẫn có "Player_ID" cũ,
+        // chứ không lẫn với "Player_ID":
+
+
+        $field = (filter_var(request()->Player_ID, FILTER_VALIDATE_EMAIL) || !request()->Player_ID)
+            ? 'email'
+            : 'Player_ID';
+
+        // Merge request
+        request()->merge([$field => request()->Player_ID]);
         return $field;
     }
 }

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Bally Portal'),
+    'name' => env('APP_NAME', 'DigitalDogDirect Portal'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

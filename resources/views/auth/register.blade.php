@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="max-width: 400px; margin: 0 auto; padding: 40px 0; text-align: center;">
+    <div class="container" style="max-width: 450px; margin: 0 auto; padding: 0 0 100px 0; text-align: center;">
         <div class="card-body" style="padding: 30px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
 
             <form method="POST" action="{{ route('register') }}" style="width: 100%;">
@@ -10,7 +10,7 @@
 
                 {{-- Thông báo lỗi nếu có --}}
                 @if(!$errors->isEmpty())
-                    <div style="color: red; margin-bottom: 15px;">
+                    <div style="color: #527428; margin-bottom: 15px;">
                         <ul style="list-style:none; padding:0;">
                             @foreach($errors->all() as $err)
                                 <li>{{ $err }}</li>
@@ -19,19 +19,19 @@
                     </div>
                 @endif
 
-                {{-- Account --}}
+                {{-- Account ID --}}
                 <div style="margin-bottom: 15px;">
                     <input type="text"
                            id="account"
                            name="account"
                            value="{{ old('account') }}"
-                           placeholder="Account"
+                           placeholder="Account ID"
                            required
                            class="form-control"
                            style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
 
-                {{-- Name --}}
+                {{-- Full Name --}}
                 <div style="margin-bottom: 15px;">
                     <input type="text"
                            id="name"
@@ -43,13 +43,14 @@
                            style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
 
-                {{-- Email (nếu vẫn muốn thu thập) --}}
+                {{-- Email --}}
                 <div style="margin-bottom: 15px;">
                     <input type="email"
                            id="email"
                            name="email"
                            value="{{ old('email') }}"
                            placeholder="Email"
+                           required
                            class="form-control"
                            style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
@@ -81,7 +82,6 @@
                     Sign Up
                 </button>
 
-                {{-- Dòng trống tuỳ ý --}}
                 <div style="height: 30px;"></div>
 
                 <div>

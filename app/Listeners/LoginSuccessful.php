@@ -23,27 +23,32 @@ class LoginSuccessful
     /**
      * Handle the event.
      *
-     * @param IlluminateAuthEventsLogin $event
+     * @param \Illuminate\Auth\Events\Login $event
      * @return void
      */
     public function handle(Login $event)
     {
+        // role_id = 2 (có thể là role “player”)
+        // test_account_flg = 0 (chỉ track nếu tài khoản không phải "test")
         if($event->user->role_id === 2 && $event->user->test_account_flg === 0)
         {
             $today = Carbon::now()->toDateString();
-            $report = Reporting::where('user_id', $event->user->id)->where('date_login', $today)->first();
-            if ($report){
-                $report->count_login++;
-                $report->save();
-            }
-            else
-                $newReport = Reporting::create(
-                    [   'user_id'=> $event->user->id,
-                        'count_login'=> 1,
-                        'account_combined'=> $event->user->CSHRV_Player_ID,
+
+            // firstOrCreate: nếu chưa có dòng nào (user_id, date_login này) thì tạo mới.
+            // account_combined: gán với Player_ID của user
+            $report = Reporting::firstOrCreate(
+                [
+                    'user_id' => $event->user->id,
                         'date_login'=> $today
+                ],
+                [
+                    'count_login' => 0,
+                    'account_combined' => $event->user->Player_ID
                     ]
                 );
+
+            // Mỗi lần đăng nhập sẽ tăng count_login thêm 1
+            $report->increment('count_login');
         }
     }
 }

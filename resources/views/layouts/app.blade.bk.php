@@ -22,7 +22,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999999;
-            background: url('https://ballysac.pcwebserv.com/loading.gif') 50% 50% no-repeat rgb(255, 255, 255);
+            background: url('https://dddwebserv.digitaldogdirect.com/loading.gif') 50% 50% no-repeat rgb(255, 255, 255);
         }
 
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:400|Oswald:700');

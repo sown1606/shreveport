@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="max-width: 400px; margin: 0 auto; padding: 40px 0; text-align: center;">
+    <div class="container" style="max-width: 450px; margin: 0 auto; padding: 0 0 100px 0; text-align: center;">
         <div class="card-body" style="background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
 
             @if (session()->has('message'))
@@ -25,7 +25,7 @@
                 <form method="POST" action="/forget-password" style="width: 100%;">
                     @csrf
                     @error('email')
-                    <div style="color: red; margin-bottom: 15px;">{{ $message }}</div>
+                    <div style="color: #527428; margin-bottom: 15px;">{{ $message }}</div>
                     @enderror
                     <div style="margin-bottom: 15px;">
                         <input type="email"

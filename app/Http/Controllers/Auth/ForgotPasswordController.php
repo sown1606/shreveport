@@ -23,14 +23,19 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email|exists:users',
         ]);
 
+        // Tạo token ngẫu nhiên
         $token = Str::random(60);
 
-        DB::table('password_resets')->insert(
-            ['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now()]
-        );
+        // Lưu vào bảng password_resets
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
 
+        // Gửi mail có link reset
         Mail::send('auth.verify',['token' => $token], function($message) use ($request) {
-            $message->from('automail@ballysac.pcwebserv.com');
+            $message->from('automail@dddwebserv.digitaldogdirect.com');
             $message->to($request->email);
             $message->subject('Reset Password Notification');
         });

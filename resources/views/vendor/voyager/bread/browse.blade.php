@@ -316,7 +316,7 @@
                                                 @endif
                                             @endforeach
                                             @if($dataType->slug === 'users' || $dataType->slug === 'datas')
-                                                <a href="/view-player-dashboard-by-account-id/{{$data->CSHRV_Player_ID}}"
+                                                <a href="/view-player-dashboard-by-account-id/{{$data->Player_ID}}"
                                                    target="_blank" title="View On Web"
                                                    class="btn btn-sm btn-success pull-right"
                                                    style="min-width: 110px;">

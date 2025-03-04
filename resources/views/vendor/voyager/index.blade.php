@@ -311,11 +311,11 @@
                 {{--                        </body>--}}
                 {{--                    </div>--}}
                 {{--                    <div class="col-sm-4">--}}
-                {{--                        <a href="/" rel="nofollow"> <!-- Bally&#039;s Atlantic City Hotel and Casino</a> -->--}}
-                {{--                            <img src="{{ asset('assets/images/BallysAC_RewardsCards_RED.png') }}" alt="bally's logo"></a>--}}
+                {{--                        <a href="/" rel="nofollow"> <!-- DigitalDogDirect&#039;s Atlantic City Hotel and Casino</a> -->--}}
+                {{--                            <img src="{{ asset('assets/images/DigitalDogDirectsAC_RewardsCards_RED.png') }}" alt="bally's logo"></a>--}}
                 {{--                        <h4 style="font-weight: 600;color: #232325;">Welcome, {{ Auth::user()->first_name }} {{  Auth::user()->last_name}}</h4>--}}
                 {{--                        <div id="TierLevel" class="textlineGold">Tier Level Red</div>--}}
-                {{--                        <hr style="height:20px;border:none;color:red;background-color:red;" />--}}
+                {{--                        <hr style="height:20px;border:none;color: #527428;background-color: #527428;" />--}}
                 {{--                        <div id="yourMembershipLevel">--}}
                 {{--                            <div id="pointsBalanceNextLevel">0 Tier Credits</div>--}}
                 {{--                        </div>--}}
@@ -327,7 +327,7 @@
                 {{--                            </div>--}}
                 {{--                        </div>--}}
                 {{--                        <br>--}}
-                {{--                        <hr style="height:1px;border:none;color:red;background-color:red;" />--}}
+                {{--                        <hr style="height:1px;border:none;color: #527428;background-color: #527428;" />--}}
                 {{--                    </div>--}}
                 {{--                </div>--}}
                 {{--        </div>--}}

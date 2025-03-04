@@ -2,68 +2,57 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use TCG\Voyager\Models\User as VoyagerUser;
 
-class User extends \TCG\Voyager\Models\User
+class User extends VoyagerUser
 {
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Các cột được phép gán qua mass assignment.
      */
     protected $fillable = [
-        'first_name', 'last_name','user_name','email','role_id', 'avatar', 'settings','password', 'secure_question1',
-        'secure_question2','secure_question3','secure_answer1','secure_answer2','secure_answer3',
-        'CSHRV_DOB',
-        'CSHRV_LName',
-        'CSHRV_FName',
-        'CSHRV_MI',
-        'CSHRV_Tier',
-        'CSHRV_MTD_Points',
-        'CSHRV_MTD_Points',
-        'CSHRV_Points_Next_Tier',
-        'CSHRV_Host_Name',
-        'CSHRV_Player_ID',
-        'BAC_Temp_Account_Number',
-        'CSHRV_Host_ID',
-        'CSHRV_Player_ID',
-        'CSHRV_Account',
-        'Flipbook_FName',
-        'Flipbook_LName',
-        'Flipbook_Tier',
-        'Flipbook_Version',
-        'Flipbook_FP',
-        'Flipbook_Total_FP',
-        'Flipbook_Food',
-        'Flipbook_SBFP',
-        'Flipbook_GC',
-        'Flipbook_MFP',
-        'Flipbook_SGC',
-        'Flipbook_NC',
-        'Flipbook_Hotel',
-        'Flipbook_Hotel_Date_01',
-        'Flipbook_Hotel_DOW',
+        // Bắt buộc
+        'role_id',
+        'Player_ID',   // Account ID người chơi
+        'FName',
+        'LName',
+        'Fullname',
+        'email',
+        'password',
+        'DOB',
+
+        // Tuỳ chọn
+        'avatar',
+        'settings',
+        'secure_question1',
+        'secure_question2',
+        'secure_question3',
+        'secure_answer1',
+        'secure_answer2',
+        'secure_answer3',
+        'test_account_flg',  // Nếu hệ thống dùng cờ này
+
+        // Lưu ý: email_verified_at, remember_token, created_at, updated_at
+        // thường do Eloquent tự xử lý. Nếu bạn muốn mass-assign, có thể thêm:
+        // 'email_verified_at', 'remember_token'
+        // T tuỳ theo ý muốn
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * Các cột ẩn khi query -> array/json.
      */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Kiểu dữ liệu cho các cột.
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'DOB' => 'date',
     ];
 }

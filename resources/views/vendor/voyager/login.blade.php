@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="max-width: 400px; margin: 0 auto; padding: 40px 0; text-align: center;">
+    <div class="container" style="max-width: 450px; margin: 0 auto; padding: 0 0 100px 0; text-align: center;">
         <div class="card-body" style="padding: 30px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
 
             {{-- Thông báo session --}}
@@ -16,19 +16,19 @@
                 @csrf
                 <h3 style="margin-bottom: 20px;">Sign In</h3>
 
-                @if($errors->has('user_name'))
-                    <span style="color: red; display: block; margin-bottom: 10px;">
-                    {{ $errors->first('user_name') }}
+                @if($errors->has('Player_ID'))
+                    <span style="color: #527428; display: block; margin-bottom: 10px;">
+                    {{ $errors->first('Player_ID') }}
                 </span>
                 @endif
                 <div style="margin-bottom: 15px;">
                     <input type="text"
-                           name="user_name"
-                           id="user_name"
+                           name="Player_ID"
+                           id="Player_ID"
                            placeholder="Account"
-                           value="{{ old('user_name') }}"
+                           value="{{ old('Player_ID') }}"
                            required
-                           class="form-control @error('user_name') is-invalid @enderror"
+                           class="form-control @error('Player_ID') is-invalid @enderror"
                            style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
 

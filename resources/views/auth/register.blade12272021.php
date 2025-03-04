@@ -6,7 +6,7 @@
                 <div class="card-body">
                                 @if(!$errors->isEmpty())
                                     <div class="alert alert-red" style="text-align: center;padding:0; margin:0">
-                                        <ul class="list-unstyled" style="color:red">
+                                        <ul class="list-unstyled" style="color: #527428">
                                             @foreach($errors->all() as $err)
                                                 <li>{{ $err }}</li>
                                             @endforeach
@@ -95,16 +95,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="CSHRV_Player_ID"
+                            <label for="Player_ID"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="CSHRV_Player_ID" type="text"
-                                       class="form-control @error('CSHRV_Player_ID') is-invalid @enderror"
-                                       name="CSHRV_Player_ID" value="{{ old('CSHRV_Player_ID') }}" required
-                                       autocomplete="CSHRV_Player_ID">
+                                <input id="Player_ID" type="text"
+                                       class="form-control @error('Player_ID') is-invalid @enderror"
+                                       name="Player_ID" value="{{ old('Player_ID') }}" required
+                                       autocomplete="Player_ID">
 
-                                @error('CSHRV_Player_ID')
+                                @error('Player_ID')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

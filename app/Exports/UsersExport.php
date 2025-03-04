@@ -35,12 +35,12 @@ class UsersExport implements FromQuery, WithHeadings
     public function query()
     {
         return User::query()->where('role_id', 2)->where('test_account_flg', 0)->whereBetween('created_at', [$this->fromDate, $this->toDate])->select(
-            'CSHRV_Player_ID as ID',
+            'Player_ID as ID',
             'first_name as FirstName',
             'last_name as LastName',
             'email as Email',
             DB::raw("(DATE_FORMAT(created_at, '%m/%d/%Y')) as SignUp_Date"),
-            'CSHRV_Email_Sent as IsEmailVerified'
+            'Email_Sent as IsEmailVerified'
         )
             ->orderBy('created_at')
             ;

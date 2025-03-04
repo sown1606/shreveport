@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Data extends Model
 {
-    protected $primaryKey = 'CSHRV_Player_ID';
+    protected $primaryKey = 'Player_ID';
     protected $table = 'Datas';
     public $timestamps = false;
     protected $keyType = 'string';
