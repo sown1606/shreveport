@@ -27,7 +27,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
     public function makeImageWinLoss($accountId, $winLoss)
     {
-        $img = Image::make('https://s3.us-east-2.amazonaws.com/shreveport.pcwebserv.com/win_loss_statments/W2G.png');
+        $img = Image::make('/W2G.png');
 
         $img->text($accountId, 720, 375, function ($font)
         {

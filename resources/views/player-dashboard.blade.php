@@ -444,7 +444,7 @@
                                 href="https://shreveport.pcwebserv.com/admin/logout"
                                 style="color: #527428">Logout</a>
                         </h6>
-                        <div id="TierLevel" class="textlineRed">Tier Level Pro</div>
+                        <div id="TierLevel" class="textlineRed">Tier Level Gold</div>
 
                         <div id="yourMembershipLevel">
                             <div id="pointsBalanceNextLevel">Tier Points <span
