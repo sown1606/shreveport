@@ -12,6 +12,8 @@ use App\Http\Controllers\ImportController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('/testWowbook', 'testWowbook');
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 

@@ -5,391 +5,138 @@
             @csrf
         </form>
         <div class="col-md-9">
-            <div class="row">
-                {{-- Offers Section --}}
-                @if($data->offers && count($data->offers) > 0)
-                    <div class="row">
-                        @foreach($data->offers as $offer)
-                            @if($offer['job_type'] == 'SM')
-                                <div class="col-md-12">
-                                    <script type="text/javascript"
-                                            src="{{asset('flipbook_assets/js/modernizr.2.5.3.min.js')}}"></script>
-                                    <link rel="stylesheet"
-                                          href="{{asset('flipbook_assets/css/lightbox.min.css')}}"/>
-                                    <script type="text/javascript"
-                                            src="{{asset('flipbook_assets/js/lightbox.min.js')}}"></script>
-                                    <div class="flipbook-viewport">
-                                        <div class="container">
-                                            <div>
-                                                <a href={{asset('flipbook_assets/pages/Booklet.pdf')}}""
-                                                   target="blank"><img
-                                                        id="printer"
-                                                        src="{{asset('flipbook_assets/pages/printer-large.png')}}"/></a>
-                                            </div>
-                                            <div class="tool-zoom">
-                                                <a id="toggle-zoom" onclick="toggleZoom()"></a>
-                                            </div>
+            {{-- Offers Section --}}
+            @if($data->offers && count($data->offers) > 0)
+                <div class="row">
+                    @foreach($data->offers as $offer)
+                        @php
+                            // Tạo link thumbnail, ví dụ 99991 => 99991_Thumb.jpg
+                            $jobNumber = $offer['offer']->Job_Number;
+                            $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
+                        @endphp
 
-                                            <div class="arrows">
-                                                <div class="arrow-prev">
-                                                    <a id="prev"><img class="previous" width="20"
-                                                                      src="{{asset('flipbook_assets/pages/left-arrow.svg')}}"
-                                                                      alt=""/></a>
-                                                </div>
-                                                <center><h4 style="color: #5c8d33;">{{$offer['label']}}</h4>
-                                                </center>
-                                                <div id="flipbook-container-response" class="container-response">
-                                                    <div class="flipbook">
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                           data-odd="1" id="page-1" data-lightbox="big" class="page"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
+                        <div class="col-md-4" style="margin-bottom: 30px; text-align:center;">
+                            <h5 style="color: #5c8d33;">{{ $offer['label'] }}</h5>
 
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
-                                                           data-even="2" id="page-2" data-lightbox="big"
-                                                           class="single"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
+                            <!-- Ảnh thumbnail ngoài trang, bấm => mở modal -->
+                            <img src="{{ $thumbUrl }}"
+                                 alt="thumbnail"
+                                 style="cursor:pointer; max-width:100%;"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#flipbookModal_{{ $loop->index }}"/>
 
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][2]}}"
-                                                           data-odd="3" id="page-3" data-lightbox="big"
-                                                           class="single"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="flipbookModal_{{ $loop->index }}" tabindex="-1"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-flipbook">
+                                    <!-- Sử dụng modal-fullscreen để fullscreen -->
+                                    <div class="modal-content flipbook-content" style="background: #fff;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ $offer['label'] }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
 
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                           data-even="4" id="page-4" data-lightbox="big"
-                                                           class="single"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                           data-even="5" id="page-5" data-lightbox="big"
-                                                           class="single"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                           data-even="6" id="page-6" data-lightbox="big"
-                                                           class="single"
-                                                           style="background-image: url('https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}')"></a>
+                                        <div id="new-flipbook" class="modal-body" style="position: relative;">
+                                            <!-- Thanh toolbar yoyapro -->
+                                            <nav>
+                                                <ul style="list-style: none !important;">
+                                                    <li><a id="first_{{ $loop->index }}" class="wowbook-first" href="#">First
+                                                            page</a></li>
+                                                    <li><a id="back_{{ $loop->index }}" class="wowbook-back" href="#">Back</a>
+                                                    </li>
+                                                    <li><a id="next_{{ $loop->index }}" class="wowbook-next" href="#">Next</a>
+                                                    </li>
+                                                    <li><a id="last_{{ $loop->index }}" class="wowbook-last" href="#">Last
+                                                            page</a></li>
+                                                    <li><a id="zoomin_{{ $loop->index }}" class="wowbook-zoomin"
+                                                           href="#">Zoom In</a></li>
+                                                    <li><a id="zoomout_{{ $loop->index }}" class="wowbook-zoomout"
+                                                           href="#">Zoom Out</a></li>
+                                                    <li><a id="slideshow_{{ $loop->index }}" class="wowbook-slideshow"
+                                                           href="#">Slide Show</a></li>
+                                                    <li><a id="flipsound_{{ $loop->index }}" class="wowbook-flipsound"
+                                                           href="#">Flip sound</a></li>
+                                                    <li><a id="fullscreen_{{ $loop->index }}" class="wowbook-fullscreen"
+                                                           href="#">Fullscreen</a></li>
+                                                    <li><a id="thumbs_{{ $loop->index }}" class="wowbook-thumbs"
+                                                           href="#">Thumbs</a></li>
+                                                </ul>
+                                            </nav>
 
-                                                    </div>
-                                                </div>
-                                                <div class="arrow-next">
-                                                    <a id="next"><img class="next" width="20"
-                                                                      src="{{asset('flipbook_assets/pages/right-arrow.svg')}}"
-                                                                      alt=""/></a>
-                                                </div>
+                                            <!-- Container wowBook -->
+                                            <div id="wowbookContainer_{{ $loop->index }}"
+                                                 style="width: 1000px; height: 600px; margin:auto;">
+                                                @foreach($offer['results'] as $img)
+                                                    @php
+                                                        $fullUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$img}";
+                                                    @endphp
+                                                    <div class="page" data-image="{{ $fullUrl }}"></div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="flipbook-slider-thumb-hide-on-mobile" class="flipbook-slider-thumb">
-                                        <div class="drag">
-                                            <!-- <img id="prev-arrow" class="thumb-arrow" src="assets/pages/left-arrow.svg" alt=""> -->
-                                            <img onclick="onPageClick(1)" class="thumb-img left-img"
-                                                 src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                 alt=""/>
+                                </div>
+                            </div> <!-- end modal -->
 
-                                            <div class="space">
-                                                <img onclick="onPageClick(2)" class="thumb-img"
-                                                     src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                     alt=""/>
-                                                <img onclick="onPageClick(3)" class="thumb-img"
-                                                     src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                     alt=""/>
-                                            </div>
+                            <!-- Khi modal show => init wowBook -->
+                            <script>
+                                $(document).ready(function () {
+                                    // Lắng nghe sự kiện modal show
+                                    $('#flipbookModal_{{ $loop->index }}').on('shown.bs.modal', function () {
+                                        // Kiểm tra nếu wowBook chưa init
+                                        if (!$("#wowbookContainer_{{ $loop->index }}").data("wowBook")) {
+                                            console.log("DEBUG: init wowBook cho offer index {{ $loop->index }}");
 
-                                            <div class="space">
-                                                <img onclick="onPageClick(4)" class="thumb-img"
-                                                     src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                     alt=""/>
-                                                <img onclick="onPageClick(5)" class="thumb-img"
-                                                     src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                     alt=""/>
-                                            </div>
-                                            <div class="space">
-
-                                                <img onclick="onPageClick(6)" class="thumb-img"
-                                                     src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                     alt=""/>
-
-                                            </div>
-
-                                            <!-- <img id="next-arrow" class="thumb-arrow" src="{{asset('flipbook_assets/pages/right-arrow.svg')}}" alt=""> -->
-                                        </div>
-
-                                        <ul class="flipbook-slick-dots" role="tablist">
-                                            <li onclick="onPageClick(1)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">1</a>
-                                            </li>
-                                            <li onclick="onPageClick(2)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">2</a>
-                                            </li>
-                                            <li onclick="onPageClick(3)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">3</a>
-                                            </li>
-                                            <li onclick="onPageClick(4)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">4</a>
-                                            </li>
-                                            <li onclick="onPageClick(5)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">5</a>
-                                            </li>
-                                            <li onclick="onPageClick(6)" class="dot">
-                                                <a type="button" style="color: #7f7f7f">6</a>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <div id="img-magnifier-container">
-                                        <img id="zoomed-image-container" class="glass" src=""/>
-                                    </div>
-                                    <div id="log"></div>
-                                    <audio id="audio" style="display: none"
-                                           src="{{asset('flipbook_assets/page-flip.mp3')}}"></audio>
-                                    <script type="text/javascript">
-                                        function scaleFlipBook() {
-                                            var imageWidth = 600;  // Đổi chiều rộng và chiều cao phù hợp với ảnh ngang
-                                            var imageHeight = 400; // Ảnh ngang có chiều rộng lớn hơn chiều cao
-
-                                            var pageWidth = 600; // Điều chỉnh chiều rộng trang mong muốn
-                                            var pageHeight = parseInt((pageWidth / imageWidth) * imageHeight);
-
-                                            $(".flipbook-viewport .container").css({
-                                                width: (pageWidth * 2) + 0 + "px", // Điều chỉnh chiều rộng tổng thể
-                                            });
-
-                                            $(".flipbook-viewport .flipbook").css({
-                                                width: (pageWidth * 2) + "px",
-                                                height: pageHeight + "px",
-                                            });
-
-                                            $(".flipbook-viewport .flipbook").css('margin-bottom', 20);
-                                        }
-
-
-                                        function doResize() {
-                                            $("html").css({ zoom: 1 });
-
-                                            var $viewport = $(".flipbook-viewport");
-                                            var viewWidth = $viewport.width();
-                                            var viewHeight = $viewport.height();
-
-                                            var $el = $(".flipbook-viewport .container");
-                                            var elWidth = $el.outerWidth();
-                                            var elHeight = $el.outerHeight();
-
-                                            var scale = Math.min(viewWidth / elWidth, viewHeight / elHeight);
-
-                                            if (scale < 1) {
-                                                scale *= 0.95;
-                                            } else {
-                                                scale = 1;
-                                            }
-
-                                            $(".flipbook-viewport .container").css({
-                                                transform: `scale(${scale})`,
-                                                transformOrigin: "top center"
-                                            });
-                                        }
-
-
-                                        function loadApp() {
-                                            scaleFlipBook();
-                                            var flipbook = $(".flipbook");
-
-                                            // Check if the CSS was already loaded
-
-                                            if (flipbook.width() == 0 || flipbook.height() == 0) {
-                                                setTimeout(loadApp, 10);
-                                                return;
-                                            }
-
-                                            $(".flipbook .double").scissor();
-
-                                            // Create the flipbook
-
-                                            $(".flipbook").turn({
-                                                // Elevation
-
-                                                elevation: 50,
-
-                                                // Enable gradients
-
-                                                gradients: true,
-
-                                                // Auto center this flipbook
-
-                                                autoCenter: true,
-                                                display: 'double', // Đảm bảo hiển thị hai trang khi cần
-                                                acceleration: true,
-                                                when: {
-                                                    turning: function (event, page, view) {
-                                                        var audio = document.getElementById("audio");
-                                                        audio.play();
-                                                    },
-                                                    turned: function (e, page) {
-                                                        //console.log('Current view: ', $(this).turn('view'));
-                                                        var thumbs = document.getElementsByClassName("thumb-img");
-                                                        for (var i = 0; i < thumbs.length; i++) {
-                                                            var element = thumbs[i];
-                                                            if (element.className.indexOf("active") !== -1) {
-                                                                $(element).removeClass("active");
-                                                            }
-                                                        }
-
-                                                        $(
-                                                            document.getElementsByClassName("thumb-img")[page - 1]
-                                                        ).addClass("active");
-
-                                                        var dots = document.getElementsByClassName("dot");
-                                                        for (var i = 0; i < dots.length; i++) {
-                                                            var dot = dots[i];
-                                                            if (dot.className.indexOf("dot-active") !== -1) {
-                                                                $(dot).removeClass("dot-active");
-                                                            }
-                                                        }
-                                                    },
+                                            $("#wowbookContainer_{{ $loop->index }}").wowBook({
+                                                width: 800,
+                                                height: 600,
+                                                centeredWhenClosed: true,
+                                                hardcovers: true,
+                                                turnPageDuration: 1000,
+                                                flipSound: true,
+                                                controls: {
+                                                    zoomIn: "#zoomin_{{ $loop->index }}",
+                                                    zoomOut: "#zoomout_{{ $loop->index }}",
+                                                    next: "#next_{{ $loop->index }}",
+                                                    back: "#back_{{ $loop->index }}",
+                                                    first: "#first_{{ $loop->index }}",
+                                                    last: "#last_{{ $loop->index }}",
+                                                    slideShow: "#slideshow_{{ $loop->index }}",
+                                                    flipSound: "#flipsound_{{ $loop->index }}",
+                                                    thumbnails: "#thumbs_{{ $loop->index }}",
+                                                    fullscreen: "#fullscreen_{{ $loop->index }}"
                                                 },
-                                            });
-                                            doResize();
+                                                use3d: true,
+                                                scaleToFit: false,
+                                                onFullscreenError: function () {
+                                                    alert("Fullscreen failed.");
+                                                }
+                                            }).css({'margin': 'auto'});
                                         }
+                                    });
 
-                                        $(window).resize(function () {
-                                            doResize();
-                                        });
-                                        $(window).bind("keydown", function (e) {
-                                            if (e.keyCode == 37) $(".flipbook").turn("previous");
-                                            else if (e.keyCode == 39) $(".flipbook").turn("next");
-                                        });
-                                        $("#prev").click(function (e) {
-                                            e.preventDefault();
-                                            $(".flipbook").turn("previous");
-                                        });
-
-                                        $("#next").click(function (e) {
-                                            e.preventDefault();
-                                            $(".flipbook").turn("next");
-                                        });
-
-                                        $("#prev-arrow").click(function (e) {
-                                            e.preventDefault();
-                                            $(".flipbook").turn("previous");
-                                        });
-
-                                        $("#next-arrow").click(function (e) {
-                                            e.preventDefault();
-                                            $(".flipbook").turn("next");
-                                        });
-
-                                        function onPageClick(i) {
-                                            $(".flipbook").turn("page", i);
+                                    // Khi modal ẩn => tắt slideshow, v.v. (nếu cần)
+                                    $('#flipbookModal_{{ $loop->index }}').on('hidden.bs.modal', function () {
+                                        let wb = $("#wowbookContainer_{{ $loop->index }}").data("wowBook");
+                                        if (wb) {
+                                            // Dừng slideshow:
+                                            wb.stopSlideShow();
+                                            // Optionally: wb.destroy();
+                                            //    => Nếu muốn init lại từ đầu mỗi lần
+                                            //    => Nên cẩn thận performance
                                         }
-
-                                        // Load the HTML4 version if there's not CSS transform
-                                        yepnope({
-                                            test: Modernizr.csstransforms,
-                                            yep: ["{{asset('flipbook_assets/js/turn.min.js')}}"],
-                                            nope: ["{{asset('flipbook_assets/js/turn.html4.min.js')}}"],
-                                            both: ["{{asset('flipbook_assets/js/scissor.min.js')}}", "{{asset('flipbook_assets/css/double-page.css')}}"],
-                                            complete: loadApp,
-                                        });
-
-                                        zoomToolEnabled = false;
-
-                                        function toggleZoom() {
-                                            if (zoomToolEnabled) {
-                                                $(".flipbook a").off("mousemove");
-                                                $("#toggle-zoom").removeClass("toggle-on");
-                                                $("#img-magnifier-container").hide();
-
-                                                zoomToolEnabled = false;
-                                            } else {
-                                                $(".flipbook a").mousemove(function (event) {
-                                                    var magnifier = $("#img-magnifier-container");
-                                                    $("#img-magnifier-container").css(
-                                                        "left",
-                                                        event.pageX - magnifier.width() / 2
-                                                    );
-                                                    $("#img-magnifier-container").css(
-                                                        "top",
-                                                        event.pageY - magnifier.height() / 2
-                                                    );
-                                                    $("#img-magnifier-container").show();
-                                                    var hoveredImage = $(event.target).css("background-image");
-                                                    var bg = hoveredImage
-                                                        .replace("url(", "")
-                                                        .replace(")", "")
-                                                        .replace(/\"/gi, "");
-                                                    // Find relative position of cursor in image.
-                                                    var targetPage = $(event.target);
-                                                    var targetLeft = 400 / 2; // Width of glass container/2
-                                                    var targetTop = 200 / 2; // Height of glass container/2
-
-                                                    var zoomedImageContainer = document.getElementById(
-                                                        "zoomed-image-container"
-                                                    );
-                                                    var zoomedImageWidth = zoomedImageContainer.width;
-                                                    var zoomedImageHeight = zoomedImageContainer.height;
-
-                                                    var imgXPercent =
-                                                        (event.pageX - $(event.target).offset().left) /
-                                                        targetPage.width();
-                                                    targetLeft -= zoomedImageWidth * imgXPercent;
-                                                    var imgYPercent =
-                                                        (event.pageY - $(event.target).offset().top) /
-                                                        targetPage.height();
-                                                    targetTop -= zoomedImageHeight * imgYPercent;
-
-                                                    $("#img-magnifier-container .glass").attr("src", bg);
-                                                    $("#img-magnifier-container .glass").css(
-                                                        "top",
-                                                        "" + targetTop + "px"
-                                                    );
-                                                    $("#img-magnifier-container .glass").css(
-                                                        "left",
-                                                        "" + targetLeft + "px"
-                                                    );
-                                                });
-
-                                                $("#toggle-zoom").addClass("toggle-on");
-                                                zoomToolEnabled = true;
-                                            }
-                                        }
-                                    </script>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <div class="row">
-                        @foreach($data->offers as $offer)
-                            @if($offer['job_type'] == 'PC')
-                                <div class="col-sm-4">
-                                    <div class="modal-wrap">
-                                        <h4 style="color: #5c8d33;text-align: center;">{{$offer['label']}}</h4>
-
-                                        <div class="slider-big">
-                                            <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                               data-lightbox-fifth="roadtrip">
-                                                <center><img
-                                                        src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                        style="width: 40%" alt=""></center>
-                                            </a>
-                                            <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
-                                               data-lightbox-fifth="roadtrip">
-                                                <img
-                                                    src="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
-                                                    style="width: 100%" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <script src="/weekender_assets/js/modal_lightbox_fifth.min.js"></script>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <script src="/weekender_assets/js/modal_slick.min.js"></script>
-                    <script src="/weekender_assets/js/modal_main.js"></script>
-                @else
-                    <p>No offers available at this time.</p>
-                @endif
-            </div>
+                                    });
+                                });
+                            </script>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>No offers available at this time.</p>
+            @endif
             <!-- WinLoss here -->
             <div id="winloss-container">
-
                 <div id="promosWLoss" style="display: none">
                     <h4 style="text-align: center;color: #527428">Win/Loss</h4>
                     @if($data->flgWL)
