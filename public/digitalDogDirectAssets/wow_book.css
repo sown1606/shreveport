@@ -215,7 +215,7 @@ img.wowbook-lazy {
 }
 
 .wowbook-thumbnails .wowbook-button {
-	background: none no-repeat 50% 50% #333;
+	background: none no-repeat 50% 50%;
 	cursor: pointer;
 	left: 0;
 	position: absolute;

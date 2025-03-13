@@ -95,18 +95,10 @@ body {
 
 .modal-content.flipbook-content {
     /* Nền tùy ý: ghép ảnh background + màu mờ. Cũng có thể background-color: #fff; */
-    background: url("/flipbook_background.avif") center center no-repeat;
     background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 6px;      /* bo góc ít lại */
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
     overflow: hidden;        /* ẩn tràn */
     position: relative;      /* cho con absolute */
-}
-
-/* Giảm bo góc header + footer cho khớp nhau */
-.modal-header .btn-close {
-    /* Nếu muốn nút close có style trắng, v.v. */
 }
 
 .nav-item .dropdown-toggle::after {
@@ -233,7 +225,6 @@ body {
     background-size: 50% 50%;
     height: 32px;
     width: 32px;
-    filter: invert(1);
 }
 #flipbook-toolbar {
     position: static !important; /* hoặc relative */
@@ -271,13 +262,9 @@ body {
     margin: 0;
     padding: 0;
     border-radius: 4px;
-
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;
-
-    /* Muốn icon thành màu trắng (nếu icon gốc đen) */
-    filter: invert(1); /* Tuỳ trường hợp */
     transition: background-color 0.2s ease;
     text-indent: -9999px;  /* Đẩy chữ ra ngoài */
     white-space: nowrap;   /* Khỏi xuống dòng */
@@ -324,26 +311,23 @@ body {
     background-image: url(../images/icons/fullscreen_off.png);
 }
 #flipbook-toolbar a:hover {
-    background-color: #2C2C2C;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fcfcfc), color-stop(100%, #f0f0f0));
-    background-image: -webkit-linear-gradient(top, #555555, #222222);
-    background-image: -moz-linear-gradient(top, #555555, #222222);
-    background-image: -ms-linear-gradient(top, #555555, #222222);
-    background-image: -o-linear-gradient(top, #555555, #222222);
-    background-image: linear-gradient(top, #555555, #222222);
+    filter: invert(49%) sepia(49%) saturate(1672%) hue-rotate(69deg) brightness(95%) contrast(88%);
 }
 
 .modal-content {
     position: relative;
     background: rgba(255, 255, 255, 0.85); /* Nền trắng hơi mờ */
-    border-radius: 10px; /* Bo góc nhẹ */
+    border-radius: 5px; /* Bo góc nhẹ */
     overflow: hidden; /* Giữ hình nền không bị tràn */
 }
 
 /* Định dạng header và footer với nền xám mờ */
 .modal-header, .modal-footer {
     background: rgba(0, 0, 0, 0.1); /* Xám mờ */
-    color: #333;
+    color: white;
+    z-index: 1;
+    border: none;
+    padding: 0 15px 0 0;
 }
 
 /* Định dạng ảnh nền */
@@ -355,7 +339,66 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: blur(4px); /* Hiệu ứng mờ */
-    opacity: 0.4; /* Độ trong suốt */
+    filter: blur(6px); /* Hiệu ứng mờ */
+    opacity: 0.6; /* Độ trong suốt */
     z-index: 0;
+}
+.wowbook-wrapper {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Thanh nav chính */
+#flipbook-toolbar {
+    position: relative;
+    display: flex;            /* dùng flex để canh dễ */
+    flex-wrap: wrap;          /* cho phép xuống dòng nếu hẹp */
+    justify-content: center;  /* canh giữa nút */
+    align-items: center;
+    padding: 8px;
+    gap: 6px;                 /* khoảng cách giữa các nút */
+    width: 100%;              /* chiếm hết bề ngang container */
+    box-sizing: border-box;
+}
+
+/* Danh sách nút */
+#flipbook-toolbar ul {
+    display: flex;
+    flex-wrap: wrap; /* nếu muốn cho phép xuống dòng */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;        /* spacing giữa <li> */
+}
+
+/* Mỗi li */
+#flipbook-toolbar li {
+    margin: 0;
+    list-style: none;
+}
+
+/* Mỗi nút a */
+#flipbook-toolbar a {
+    width: 36px;     /* Hoặc tùy thích */
+    height: 36px;
+    display: inline-flex; /* flex cho icon căn giữa */
+    justify-content: center;
+    align-items: center;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    /* Thêm @media query tùy ý để giảm kích thước icon nếu màn hình nhỏ */
+}
+
+.wowbook-button:hover {
+    filter: invert(49%) sepia(49%) saturate(1672%) hue-rotate(69deg) brightness(95%) contrast(88%);
+}
+
+.modal-title-custom {
+    margin: 0 auto !important;
+    font-weight: 900;
 }
