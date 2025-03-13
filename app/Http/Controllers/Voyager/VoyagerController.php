@@ -35,7 +35,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
         $img = Image::make($filePath);
 
-        $img->text($accountId, 720, 375, function ($font)
+        $img->text($accountId, 820, 275, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(68);
@@ -44,7 +44,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text($winLoss->FName . ' ' . $winLoss->LName, 720, 470, function ($font)
+        $img->text($winLoss->FName . ' ' . $winLoss->LName, 820, 370, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -53,7 +53,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text($winLoss->Address_01, 720, 565, function ($font)
+        $img->text($winLoss->Address_01, 820, 465, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -62,7 +62,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text($winLoss->City . ' ' . $winLoss->State . ' ' . $winLoss->Postal_Code, 720, 660, function ($font)
+        $img->text($winLoss->City . ' ' . $winLoss->State . ' ' . $winLoss->Postal_Code, 820, 560, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -71,7 +71,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text($winLoss->FName . ',', 420, 1195, function ($font)
+        $img->text($winLoss->FName . ',', 418, 1196, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -80,7 +80,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text($winLoss->Year . '*', 2400, 1510, function ($font)
+        $img->text($winLoss->Year . '*', 1737, 1497, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -89,7 +89,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             $font->valign('top');
             $font->angle(0);
         });
-        $img->text('$ ' . $winLoss->Win_Loss, 920, 1810, function ($font)
+        $img->text($winLoss->Win_Loss, 900, 1735, function ($font)
         {
             $font->file(public_path('WinLoss/font.ttf'));
             $font->size(70);
@@ -166,7 +166,7 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
                 $data->hostCell_Phone = $host->Cell_Phone;
                 $data->hostEmail = $host->Email;
                 $data->hostHost_ID = $host->Host_ID;
-                $data->hostImage_Name = 'https://digitaldogdirect.s3.us-east-1.amazonaws.com/'.$host->Image_Name;
+                $data->hostImage_Name = 'https://digitaldogdirect.s3.us-east-1.amazonaws.com/' . $host->Image_Name;
             }
         }
 
@@ -185,9 +185,9 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
         // ----------- BẮT ĐẦU CODE MỚI CHO MULTIPLE OFFERS -----------
         $data->offers = []; // Initialize an array to hold all offers
 
-        $offers = \App\Offers::where('Player_ID', $accountId)
-            ->whereIn('Job_Type', ['PC', 'SM'])
-            ->whereRaw("STR_TO_DATE(Expire, '%m/%d/%Y') >= CURDATE()") // Dùng STR_TO_DATE và CURDATE()
+        $offers = \App\Offers::where('Player_ID', $accountId)->whereIn('Job_Type', ['PC', 'SM'])->whereRaw(
+                "STR_TO_DATE(Expire, '%m/%d/%Y') >= CURDATE()"
+            ) // Dùng STR_TO_DATE và CURDATE()
             ->get();
 
         if ($offers->isNotEmpty()) {
@@ -200,18 +200,41 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
                 ];
 
                 $results = [ // Create array of image page names
-                    $offer->Page01,  $offer->Page02,  $offer->Page03,  $offer->Page04,  $offer->Page05,
-                    $offer->Page06,  $offer->Page07,  $offer->Page08,  $offer->Page09,  $offer->Page10,
-                    $offer->Page11,  $offer->Page12,  $offer->Page13,  $offer->Page14,  $offer->Page15,
-                    $offer->Page16,  $offer->Page17,  $offer->Page18,  $offer->Page19,  $offer->Page20,
+                    $offer->Page01,
+                    $offer->Page02,
+                    $offer->Page03,
+                    $offer->Page04,
+                    $offer->Page05,
+                    $offer->Page06,
+                    $offer->Page07,
+                    $offer->Page08,
+                    $offer->Page09,
+                    $offer->Page10,
+                    $offer->Page11,
+                    $offer->Page12,
+                    $offer->Page13,
+                    $offer->Page14,
+                    $offer->Page15,
+                    $offer->Page16,
+                    $offer->Page17,
+                    $offer->Page18,
+                    $offer->Page19,
+                    $offer->Page20,
                 ];
 
                 // Filter out nulls and add ".jpg" extension
-                $offerData['results'] = array_filter(array_map(function ($page) {
-                    return $page ? $page . ".jpg" : null;
-                }, $results));
+                $offerData['results'] = array_filter(
+                    array_map(function ($page)
+                    {
+                        return $page ? $page . ".jpg" : null;
+                    }, $results)
+                );
 
-                $data->offers[] = $offerData; // Add offer data to the offers array
+                if (stripos($offer->Label, 'SM') !== false) {
+                    $data->offers_sm[] = $offerData;
+                } else {
+                    $data->offers_pc[] = $offerData;
+                }
             }
         }
         // ----------- KẾT THÚC CODE MỚI CHO MULTIPLE OFFERS -----------
@@ -277,10 +300,10 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
         if (in_array($ext, ['jpeg', 'jpg', 'png', 'gif'])) {
             $image = Image::make($file)->resize($resizeWidth, $resizeHeight, function (Constraint $constraint)
-                {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+            {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
             if ($ext !== 'gif') {
                 $image->orientate();
             }

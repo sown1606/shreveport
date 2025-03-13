@@ -12,6 +12,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>!window.jQuery && document.write(unescape('%3Cscript src="{{ asset('js/jquery-1.9.1.min.js') }}"%3E%3C/script%3E'))</script>
     <link href="/weekender_assets/css/modal_style.css" rel="stylesheet">
+    <link href="/weekender_assets/css/modal_slick.css" rel="stylesheet">
+    <link href="/weekender_assets/css/modal_slick-theme.css" rel="stylesheet">
+    <link href="/weekender_assets/css/modal_lightbox.min.css" rel="stylesheet">
+    <link href="/weekender_assets/css/modal_style.css" rel="stylesheet">
     <style>
         @auth
         .content-overlay {
@@ -34,6 +38,7 @@
     </style>
 </head>
 <body>
+<div id="weekender-section">
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
@@ -162,6 +167,6 @@
         document.body.style.opacity = "1";
     });
 </script>
-
+</div>
 </body>
 </html>

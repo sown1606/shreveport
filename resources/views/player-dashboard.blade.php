@@ -6,7 +6,7 @@
         </form>
         <div class="col-md-9">
             {{-- Offers Section --}}
-            @if($data->offers && count($data->offers) > 0)
+            @if($data->offers_sm || $data->offers_pc)
                 <div class="row">
                     @php
                         // Tách SM và PC
@@ -20,13 +20,14 @@
                             }
                         }
                     @endphp
-                    @if(count($sm) > 0)
+                    @if(count($data->offers_sm) > 0)
                         <div class="row justify-content-center">
-                            @foreach($sm as $index => $offer)
+                            @foreach($data->offers_sm as $index => $offer)
                         @php
                             // Tạo link thumbnail, ví dụ 99991 => 99991_Thumb.jpg
                             $jobNumber = $offer['offer']->Job_Number;
                             $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
+                            $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
                         @endphp
 
                         <div class="col-md-4" style="margin-bottom: 30px; text-align:center;">
@@ -164,13 +165,13 @@
                     @endforeach
                         </div>
                     @endif
-                    @if(count($pc) > 0)
+                    @if(count($data->offers_pc) > 0)
                         <div class="row justify-content-center">
-                            @foreach($pc as $index => $offer)
+                            @foreach($data->offers_pc as $index => $offer)
                         @php
-                            // Tạo link thumbnail, ví dụ 99991 => 99991_Thumb.jpg
                             $jobNumber = $offer['offer']->Job_Number;
-                            $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
+                             $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
+                             $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
                         @endphp
 
                         <div class="col-md-4" style="margin-bottom: 30px; text-align:center;">
