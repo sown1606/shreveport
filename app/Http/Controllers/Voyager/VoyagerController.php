@@ -27,7 +27,13 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
     public function makeImageWinLoss($accountId, $winLoss)
     {
-        $img = Image::make('/W2G.png');
+        $filePath = public_path('W2G.png');
+
+        if (!file_exists($filePath)) {
+            throw new \Exception('File not found: ' . $filePath);
+        }
+
+        $img = Image::make($filePath);
 
         $img->text($accountId, 720, 375, function ($font)
         {
@@ -102,56 +108,6 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
                 $img->save(public_path('WinLoss/ImageByAccountId/' . $accountId . '/' . $winLoss->Year . '.jpg'));
             }
         }
-    }
-
-    public function makeOffer($accountId, $imageTextData, $fileName)
-    {
-        // Ví dụ link S3 => 'https://digitaldogdirect.s3.us-east-1.amazonaws.com/...'
-        // Tuỳ bạn gán prefix hay full path
-        $imageUrl = 'https://digitaldogdirect.s3.us-east-1.amazonaws.com/' . $fileName . '.jpg';
-
-        // Tạo instance Intervention Image
-        $img = Image::make($imageUrl);
-
-        // Chèn text
-        $img->text($imageTextData, 180, 270, function ($font)
-        {
-            $font->file(public_path('fonts/steelfish rg.ttf')); // tuỳ font
-            $font->size(120);
-            $font->color('#000');
-            $font->align('left');
-            $font->angle(0);
-        });
-
-        // Tạo folder local (nếu cần) => “public/Offer/ImageByAccountId/xxx”
-        $path = public_path('Offer/ImageByAccountId/' . $accountId);
-        if (!File::exists($path)) {
-            File::makeDirectory($path, 0777, true, true);
-        }
-        // Lưu file
-        $img->save($path . '/' . $fileName . '.jpg');
-    }
-
-    public function makePC($imageTextData, $fileName)
-    {
-        $imageUrl = 'https://digitaldogdirect.s3.us-east-1.amazonaws.com/' . $fileName . '.jpg';
-        $img = Image::make($imageUrl);
-
-        // Toạ độ text, font… tuỳ bạn
-        $img->text($imageTextData, 580, 760, function ($font)
-        {
-            $font->file(public_path('fonts/fontb.ttf'));
-            $font->size(70);
-            $font->color('#000');
-            $font->align('center');
-            $font->angle(0);
-        });
-
-        $dirWeekender = public_path('Weekender/Images');
-        if (!File::exists($dirWeekender)) {
-            File::makeDirectory($dirWeekender, 0777, true, true);
-        }
-        $img->save($dirWeekender . '/' . $fileName . '.jpg');
     }
 
     //Function Get data by Account Id

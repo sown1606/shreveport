@@ -8,7 +8,21 @@
             {{-- Offers Section --}}
             @if($data->offers && count($data->offers) > 0)
                 <div class="row">
-                    @foreach($data->offers as $offer)
+                    @php
+                        // Tách SM và PC
+                        $sm = [];
+                        $pc = [];
+                        foreach($data->offers as $o) {
+                            if (stripos($o['label'], 'SM') !== false) {
+                                $sm[] = $o;
+                            } else {
+                                $pc[] = $o;
+                            }
+                        }
+                    @endphp
+                    @if(count($sm) > 0)
+                        <div class="row justify-content-center">
+                            @foreach($sm as $index => $offer)
                         @php
                             // Tạo link thumbnail, ví dụ 99991 => 99991_Thumb.jpg
                             $jobNumber = $offer['offer']->Job_Number;
@@ -21,51 +35,53 @@
                             <!-- Ảnh thumbnail ngoài trang, bấm => mở modal -->
                             <img src="{{ $thumbUrl }}"
                                  alt="thumbnail"
-                                 style="cursor:pointer; max-width:100%;"
+                                 style="cursor:pointer; max-width:300px;"
                                  data-bs-toggle="modal"
-                                 data-bs-target="#flipbookModal_{{ $loop->index }}"/>
+                                 data-bs-target="#flipbookModal_sm_{{ $loop->index }}"/>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="flipbookModal_{{ $loop->index }}" tabindex="-1"
+                            @php
+                                $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
+                            @endphp
+                                <!-- Modal -->
+                            <div class="modal fade" id="flipbookModal_sm_{{ $loop->index }}" tabindex="-1"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-flipbook">
                                     <!-- Sử dụng modal-fullscreen để fullscreen -->
                                     <div class="modal-content flipbook-content" style="background: #fff;">
+                                        <div class="modal-background" style="background-image: url('{{ $firstImage }}');"></div>
                                         <div class="modal-header">
                                             <h5 class="modal-title">{{ $offer['label'] }}</h5>
+                                            <nav id="flipbook-toolbar">
+                                                <ul style="list-style: none !important;">
+                                                    <li><a id="first_sm_{{ $loop->index }}" class="wowbook-first" href="#">First
+                                                            page</a></li>
+                                                    <li><a id="back_sm_{{ $loop->index }}" class="wowbook-back" href="#">Back</a>
+                                                    </li>
+                                                    <li><a id="next_sm_{{ $loop->index }}" class="wowbook-next" href="#">Next</a>
+                                                    </li>
+                                                    <li><a id="last_sm_{{ $loop->index }}" class="wowbook-last" href="#">Last
+                                                            page</a></li>
+                                                    <li><a id="zoomin_sm_{{ $loop->index }}" class="wowbook-zoomin"
+                                                           href="#">Zoom In</a></li>
+                                                    <li><a id="zoomout_sm_{{ $loop->index }}" class="wowbook-zoomout"
+                                                           href="#">Zoom Out</a></li>
+                                                    <li><a id="slideshow_sm_{{ $loop->index }}" class="wowbook-slideshow"
+                                                           href="#">Slide Show</a></li>
+                                                    <li><a id="flipsound_sm_{{ $loop->index }}" class="wowbook-flipsound"
+                                                           href="#">Flip sound</a></li>
+                                                    <li><a id="fullscreen_sm_{{ $loop->index }}" class="wowbook-fullscreen"
+                                                           href="#">Fullscreen</a></li>
+                                                    <li><a id="thumbs_sm_{{ $loop->index }}" class="wowbook-thumbs"
+                                                           href="#">Thumbs</a></li>
+                                                </ul>
+                                            </nav>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
 
                                         <div id="new-flipbook" class="modal-body" style="position: relative;">
-                                            <!-- Thanh toolbar yoyapro -->
-                                            <nav>
-                                                <ul style="list-style: none !important;">
-                                                    <li><a id="first_{{ $loop->index }}" class="wowbook-first" href="#">First
-                                                            page</a></li>
-                                                    <li><a id="back_{{ $loop->index }}" class="wowbook-back" href="#">Back</a>
-                                                    </li>
-                                                    <li><a id="next_{{ $loop->index }}" class="wowbook-next" href="#">Next</a>
-                                                    </li>
-                                                    <li><a id="last_{{ $loop->index }}" class="wowbook-last" href="#">Last
-                                                            page</a></li>
-                                                    <li><a id="zoomin_{{ $loop->index }}" class="wowbook-zoomin"
-                                                           href="#">Zoom In</a></li>
-                                                    <li><a id="zoomout_{{ $loop->index }}" class="wowbook-zoomout"
-                                                           href="#">Zoom Out</a></li>
-                                                    <li><a id="slideshow_{{ $loop->index }}" class="wowbook-slideshow"
-                                                           href="#">Slide Show</a></li>
-                                                    <li><a id="flipsound_{{ $loop->index }}" class="wowbook-flipsound"
-                                                           href="#">Flip sound</a></li>
-                                                    <li><a id="fullscreen_{{ $loop->index }}" class="wowbook-fullscreen"
-                                                           href="#">Fullscreen</a></li>
-                                                    <li><a id="thumbs_{{ $loop->index }}" class="wowbook-thumbs"
-                                                           href="#">Thumbs</a></li>
-                                                </ul>
-                                            </nav>
-
                                             <!-- Container wowBook -->
-                                            <div id="wowbookContainer_{{ $loop->index }}"
+                                            <div id="wowbookContainer_sm_{{ $loop->index }}"
                                                  style="width: 1000px; height: 600px; margin:auto;">
                                                 @foreach($offer['results'] as $img)
                                                     @php
@@ -74,6 +90,7 @@
                                                     <div class="page" data-image="{{ $fullUrl }}"></div>
                                                 @endforeach
                                             </div>
+                                            <div id="thumbs_holder_sm_{{ $loop->index }}" style="min-height: 110px"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -83,42 +100,56 @@
                             <script>
                                 $(document).ready(function () {
                                     // Lắng nghe sự kiện modal show
-                                    $('#flipbookModal_{{ $loop->index }}').on('shown.bs.modal', function () {
+                                    $('#flipbookModal_sm_{{ $loop->index }}').on('shown.bs.modal', function () {
                                         // Kiểm tra nếu wowBook chưa init
-                                        if (!$("#wowbookContainer_{{ $loop->index }}").data("wowBook")) {
-                                            console.log("DEBUG: init wowBook cho offer index {{ $loop->index }}");
-
-                                            $("#wowbookContainer_{{ $loop->index }}").wowBook({
-                                                width: 800,
-                                                height: 600,
-                                                centeredWhenClosed: true,
-                                                hardcovers: true,
+                                        if (!$("#wowbookContainer_sm_{{ $loop->index }}").data("wowBook")) {
+                                            $("#wowbookContainer_sm_{{ $loop->index }}").wowBook({
+                                                width: 600,
+                                                height: 400,
+                                                centeredWhenClosed: false,
+                                                hardcovers: false,
                                                 turnPageDuration: 1000,
                                                 flipSound: true,
+                                                bookShadow: true,
+                                                gutterShadow: true,
+                                                shadowThreshold: 10,
+                                                shadows: true,
+                                                foldGradient: true,
+                                                pageNumbers: true,
+                                                firstPageNumber: 1,
                                                 controls: {
-                                                    zoomIn: "#zoomin_{{ $loop->index }}",
-                                                    zoomOut: "#zoomout_{{ $loop->index }}",
-                                                    next: "#next_{{ $loop->index }}",
-                                                    back: "#back_{{ $loop->index }}",
-                                                    first: "#first_{{ $loop->index }}",
-                                                    last: "#last_{{ $loop->index }}",
-                                                    slideShow: "#slideshow_{{ $loop->index }}",
-                                                    flipSound: "#flipsound_{{ $loop->index }}",
-                                                    thumbnails: "#thumbs_{{ $loop->index }}",
-                                                    fullscreen: "#fullscreen_{{ $loop->index }}"
+                                                    zoomIn: "#zoomin_sm_{{ $loop->index }}",
+                                                    zoomOut: "#zoomout_sm_{{ $loop->index }}",
+                                                    next: "#next_sm_{{ $loop->index }}",
+                                                    back: "#back_sm_{{ $loop->index }}",
+                                                    first: "#first_sm_{{ $loop->index }}",
+                                                    last: "#last_sm_{{ $loop->index }}",
+                                                    slideShow: "#slideshow_sm_{{ $loop->index }}",
+                                                    flipSound: "#flipsound_sm_{{ $loop->index }}",
+                                                    thumbnails: "#thumbs_sm_{{ $loop->index }}",
+                                                    fullscreen: "#fullscreen_sm_{{ $loop->index }}"
                                                 },
                                                 use3d: true,
+                                                perspective: 4000,
+                                                transparentPages: false,
+                                                useTranslate3d: true,
+                                                responsive: true,
                                                 scaleToFit: false,
+                                                thumbnails: true,
+                                                thumbnailsPosition: 'bottom',
+                                                thumbnailsParent: "#thumbs_holder_sm_{{ $loop->index }}",
                                                 onFullscreenError: function () {
-                                                    alert("Fullscreen failed.");
-                                                }
-                                            }).css({'margin': 'auto'});
+                                                    var msg = "Fullscreen failed.";
+                                                    if (self != top) msg = "The frame is blocking full screen mode. Click on 'remove frame' button above and try to go full screen again."
+                                                    alert(msg);
+                                                },
+                                            }).css({'display': 'none', 'margin': 'auto'}).fadeIn(1000);
                                         }
                                     });
 
                                     // Khi modal ẩn => tắt slideshow, v.v. (nếu cần)
-                                    $('#flipbookModal_{{ $loop->index }}').on('hidden.bs.modal', function () {
-                                        let wb = $("#wowbookContainer_{{ $loop->index }}").data("wowBook");
+                                    $('#flipbookModal_sm_{{ $loop->index }}').on('hidden.bs.modal', function () {
+                                        let wb = $("#wowbookContainer_sm_{{ $loop->index }}").data("wowBook");
                                         if (wb) {
                                             // Dừng slideshow:
                                             wb.stopSlideShow();
@@ -131,6 +162,152 @@
                             </script>
                         </div>
                     @endforeach
+                        </div>
+                    @endif
+                    @if(count($pc) > 0)
+                        <div class="row justify-content-center">
+                            @foreach($pc as $index => $offer)
+                        @php
+                            // Tạo link thumbnail, ví dụ 99991 => 99991_Thumb.jpg
+                            $jobNumber = $offer['offer']->Job_Number;
+                            $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
+                        @endphp
+
+                        <div class="col-md-4" style="margin-bottom: 30px; text-align:center;">
+                            <h5 style="color: #5c8d33;">{{ $offer['label'] }}</h5>
+
+                            <!-- Ảnh thumbnail ngoài trang, bấm => mở modal -->
+                            <img src="{{ $thumbUrl }}"
+                                 alt="thumbnail"
+                                 style="cursor:pointer; max-width:300px;"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#flipbookModal_pc_{{ $loop->index }}"/>
+
+                            @php
+                                $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
+                            @endphp
+                                <!-- Modal -->
+                            <div class="modal fade" id="flipbookModal_pc_{{ $loop->index }}" tabindex="-1"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-flipbook">
+                                    <!-- Sử dụng modal-fullscreen để fullscreen -->
+                                    <div class="modal-content flipbook-content" style="background: #fff;">
+                                        <div class="modal-background" style="background-image: url('{{ $firstImage }}');"></div>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ $offer['label'] }}</h5>
+                                            <nav id="flipbook-toolbar">
+                                                <ul style="list-style: none !important;">
+                                                    <li><a id="first_pc_{{ $loop->index }}" class="wowbook-first" href="#">First
+                                                            page</a></li>
+                                                    <li><a id="back_pc_{{ $loop->index }}" class="wowbook-back" href="#">Back</a>
+                                                    </li>
+                                                    <li><a id="next_pc_{{ $loop->index }}" class="wowbook-next" href="#">Next</a>
+                                                    </li>
+                                                    <li><a id="last_pc_{{ $loop->index }}" class="wowbook-last" href="#">Last
+                                                            page</a></li>
+                                                    <li><a id="zoomin_pc_{{ $loop->index }}" class="wowbook-zoomin"
+                                                           href="#">Zoom In</a></li>
+                                                    <li><a id="zoomout_pc_{{ $loop->index }}" class="wowbook-zoomout"
+                                                           href="#">Zoom Out</a></li>
+                                                    <li><a id="slideshow_pc_{{ $loop->index }}" class="wowbook-slideshow"
+                                                           href="#">Slide Show</a></li>
+                                                    <li><a id="flipsound_pc_{{ $loop->index }}" class="wowbook-flipsound"
+                                                           href="#">Flip sound</a></li>
+                                                    <li><a id="fullscreen_pc_{{ $loop->index }}" class="wowbook-fullscreen"
+                                                           href="#">Fullscreen</a></li>
+                                                    <li><a id="thumbs_pc_{{ $loop->index }}" class="wowbook-thumbs"
+                                                           href="#">Thumbs</a></li>
+                                                </ul>
+                                            </nav>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+
+                                        <div id="new-flipbook" class="modal-body" style="position: relative;">
+                                            <!-- Container wowBook -->
+                                            <div id="wowbookContainer_pc_{{ $loop->index }}"
+                                                 style="width: 1000px; height: 600px; margin:auto;">
+                                                @foreach($offer['results'] as $img)
+                                                    @php
+                                                        $fullUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$img}";
+                                                    @endphp
+                                                    <div class="page" data-image="{{ $fullUrl }}"></div>
+                                                @endforeach
+                                            </div>
+                                            <div id="thumbs_holder_pc_{{ $loop->index }}" style="min-height: 110px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end modal -->
+
+                            <!-- Khi modal show => init wowBook -->
+                            <script>
+                                $(document).ready(function () {
+                                    // Lắng nghe sự kiện modal show
+                                    $('#flipbookModal_pc_{{ $loop->index }}').on('shown.bs.modal', function () {
+                                        // Kiểm tra nếu wowBook chưa init
+                                        if (!$("#wowbookContainer_pc_{{ $loop->index }}").data("wowBook")) {
+                                            $("#wowbookContainer_pc_{{ $loop->index }}").wowBook({
+                                                width: 600,
+                                                height: 400,
+                                                centeredWhenClosed: false,
+                                                hardcovers: false,
+                                                turnPageDuration: 1000,
+                                                flipSound: true,
+                                                bookShadow: true,
+                                                gutterShadow: true,
+                                                shadowThreshold: 10,
+                                                shadows: true,
+                                                foldGradient: true,
+                                                pageNumbers: true,
+                                                firstPageNumber: 1,
+                                                controls: {
+                                                    zoomIn: "#zoomin_pc_{{ $loop->index }}",
+                                                    zoomOut: "#zoomout_pc_{{ $loop->index }}",
+                                                    next: "#next_pc_{{ $loop->index }}",
+                                                    back: "#back_pc_{{ $loop->index }}",
+                                                    first: "#first_pc_{{ $loop->index }}",
+                                                    last: "#last_pc_{{ $loop->index }}",
+                                                    slideShow: "#slideshow_pc_{{ $loop->index }}",
+                                                    flipSound: "#flipsound_pc_{{ $loop->index }}",
+                                                    thumbnails: "#thumbs_pc_{{ $loop->index }}",
+                                                    fullscreen: "#fullscreen_pc_{{ $loop->index }}"
+                                                },
+                                                use3d: true,
+                                                perspective: 4000,
+                                                transparentPages: false,
+                                                useTranslate3d: true,
+                                                responsive: true,
+                                                scaleToFit: false,
+                                                thumbnails: true,
+                                                thumbnailsPosition: 'bottom',
+                                                thumbnailsParent: "#thumbs_holder_pc_{{ $loop->index }}",
+                                                onFullscreenError: function () {
+                                                    var msg = "Fullscreen failed.";
+                                                    if (self != top) msg = "The frame is blocking full screen mode. Click on 'remove frame' button above and try to go full screen again."
+                                                    alert(msg);
+                                                },
+                                            }).css({'display': 'none', 'margin': 'auto'}).fadeIn(1000);
+                                        }
+                                    });
+
+                                    // Khi modal ẩn => tắt slideshow, v.v. (nếu cần)
+                                    $('#flipbookModal_pc_{{ $loop->index }}').on('hidden.bs.modal', function () {
+                                        let wb = $("#wowbookContainer_pc_{{ $loop->index }}").data("wowBook");
+                                        if (wb) {
+                                            // Dừng slideshow:
+                                            wb.stopSlideShow();
+                                            // Optionally: wb.destroy();
+                                            //    => Nếu muốn init lại từ đầu mỗi lần
+                                            //    => Nên cẩn thận performance
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                    @endforeach
+                        </div>
+                    @endif
                 </div>
             @else
                 <p>No offers available at this time.</p>

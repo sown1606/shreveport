@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Digital Dog Direct: Direct Mail, Digital Printing, &amp; Marketing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/preview.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/preview.css') }}">
     <link href="/digitalDogDirectAssets/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/wow_book.css') }}"/>
     <script src="{{ asset('js/modernizr-1.6.min.js') }}"></script>
@@ -20,6 +20,17 @@
             padding: 0;
         }
         @endauth
+        @guest
+        .content-overlay {
+            color: black;
+            width: 100%;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        @endguest
     </style>
 </head>
 <body>
@@ -40,7 +51,7 @@
                     <a class="nav-link active" aria-current="page" href="https://www.digitaldogdirect.com/">HOME</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button"
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink1" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         TECHNOLOGY
                     </a>
@@ -58,7 +69,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink2" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         SERVICES
                     </a>
@@ -72,7 +83,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button"
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink3" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         INDUSTRIES
                     </a>
@@ -98,7 +109,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button"
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink4" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         ABOUT US
                     </a>
@@ -119,11 +130,12 @@
 </nav>
 
 <div class="video-container">
+    @guest
     <video id="video-background" autoplay loop muted playsinline>
         <source src="/digitalDogDirectAssets/file.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-
+    @endguest
     <div class="content-overlay">
         @yield('content')  </div>
 </div>
@@ -141,7 +153,7 @@
         <p>© 2024 Digital Dog Direct LLC</p>
     </div>
 </footer>
-<script src="{{ asset('wow_book.min.js') }}"></script>
+<script src="{{ asset('wow_book.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>

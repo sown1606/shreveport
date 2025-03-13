@@ -1,27 +1,43 @@
+@font-face {
+    font-family: 'questrial';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/questrial/v9/QdVUSTchPBm7nuUeVf70viFluW44JQ.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    font-display: swap;
+}
+
 a {
     text-decoration: none !important;
 }
+
 .modal-backdrop {
     z-index: 1050 !important;
 }
+
 .modal {
     z-index: 1060 !important; /* cao hơn backdrop */
 }
+
 /* General Styles */
 body {
     font-family: sans-serif; /*  better default font */
 }
+
 .navbar {
     background-color: rgba(255, 255, 255, 0.9);
     z-index: 10; /* Ensure navbar is on top */
     position: relative;
 }
+
 .navbar-brand img {
     height: 50px;
 }
+
 .dropdown-menu {
     background-color: rgba(255, 255, 255, 0.9);
 }
+
 .footer {
     background-color: #f8f9fa;
     padding: 20px 0;
@@ -32,7 +48,7 @@ body {
 
 /* Video Container */
 .video-container {
-    position: relative;  /*  CRUCIAL for positioning the content */
+    position: relative; /*  CRUCIAL for positioning the content */
     width: 100%;
     height: 70vh; /* Or any desired height */
     overflow: hidden; /* Hide overflowing video */
@@ -45,15 +61,15 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Cover entire container */
-    z-index: -1;      /* Place video BEHIND content */
+    z-index: -1; /* Place video BEHIND content */
 }
 
 /* Content Overlay (for both guest and auth) */
 .content-overlay {
     position: absolute; /*  Position within the video container */
-    width: 80%;       /* Adjust as needed */
+    width: 80%; /* Adjust as needed */
     text-align: center;
-    color: white;      /* Default text color */
+    color: white; /* Default text color */
     padding: 20px;
 }
 
@@ -68,24 +84,278 @@ body {
     font-size: 1.25rem;
 }
 
-@media (min-width: 768px) {
-    .modal-xl {
-        --bs-modal-width: 80% !important;
-    }
+.modal-dialog.modal-flipbook {
+    --bs-modal-width: 80% !important;
 }
 
 /* Ví dụ: .modal-flipbook dùng để giới hạn max-width, canh giữa */
 .modal-dialog.modal-flipbook {
-    max-width: 900px; /* chiều rộng tối đa */
     margin: 2rem auto; /* canh giữa, cách lề một chút */
 }
 
-/* .flipbook-content để trang trí khung modal */
 .modal-content.flipbook-content {
-    border: 2px solid #ccc;      /* viền nhạt */
-    border-radius: 8px;          /* bo góc nhẹ */
-    background-color: #fff;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    overflow: hidden;
-    position: relative; /* cho chắc, nếu cần absolute child */
+    /* Nền tùy ý: ghép ảnh background + màu mờ. Cũng có thể background-color: #fff; */
+    background: url("/flipbook_background.avif") center center no-repeat;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 6px;      /* bo góc ít lại */
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    overflow: hidden;        /* ẩn tràn */
+    position: relative;      /* cho con absolute */
+}
+
+/* Giảm bo góc header + footer cho khớp nhau */
+.modal-header .btn-close {
+    /* Nếu muốn nút close có style trắng, v.v. */
+}
+
+.nav-item .dropdown-toggle::after {
+    content: "";
+!important;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* remove the gap so it doesn't close */
+}
+
+#new-flipbook nav {
+    position: relative !important; /* thay vì absolute */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: auto !important;
+    margin-bottom: 10px;
+    padding: 6px 0;
+}
+
+/* Canh các nút thành 1 hàng ngang */
+#new-flipbook nav ul {
+    display: flex;
+    justify-content: center; /* canh giữa */
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#new-flipbook nav li {
+    margin: 0 4px;
+    display: inline-block;
+}
+
+/* Các nút trong nav => thành 1 hàng, màu trắng */
+#new-flipbook nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#new-flipbook nav li {
+    margin: 0 4px;
+    display: inline-block;
+}
+#new-flipbook nav a {
+    width: 32px;    /* icon cỡ 32x32 */
+    height: 32px;
+    background-size: 24px 24px; /* co icon cho nhỏ lại */
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    background-color: transparent; /* hoặc #444, tùy */
+    transition: background-color 0.2s ease;
+    filter: invert(1); /* biến icon thành trắng nếu icon gốc đen, tuỳ icon */
+}
+
+/* Hover: nền xám mờ */
+#new-flipbook nav a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+/* Tách nút fullscreen ra góc dưới-phải flipbook
+   => ta override `.wowbook-fullscreen` */
+#new-flipbook nav .wowbook-fullscreen {
+    position: absolute !important;
+    bottom: 10px;    /* cách đáy 10px */
+    right: 10px;     /* cách phải 10px */
+    z-index: 9999;   /* trên everything */
+    margin: 0 !important;
+    background-color: rgba(0,0,0,0.5) !important; /* tạo khối nửa đen? */
+    /* Có thể filter icon cho trắng: filter: invert(1); */
+}
+
+.nav-item .dropdown-toggle::after {
+    content: "" !important;
+    display: none !important;
+}
+
+.dropdown-menu {
+    background-color: rgba(255,255,255,0.85) !important;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #333;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #eee;
+}
+
+.publuu-close-x {
+    position: absolute;
+    top: -15px; /* trồi lên trên modal */
+    right: -15px; /* canh phải */
+    background: #fff;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 99999;
+}
+.publuu-close-x:hover {
+    background: #eaeaea;
+}
+.publuu-close-x svg { /* icon X */
+    fill: #000;
+    width: 12px; height: 12px;
+}
+/*Toolbar-----------------------------------*/
+.wowbook-first {
+    background-image: url(../images/icons/arrow_double_left.png);
+    background-size: 50% 50%;
+    height: 32px;
+    width: 32px;
+    filter: invert(1);
+}
+#flipbook-toolbar {
+    position: static !important; /* hoặc relative */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Có thể tùy thích chiều cao, margin/padding */
+    height: auto;
+    margin: 0 auto;
+    padding: 6px 0;
+
+    /* Đảm bảo nằm trong header => background inherited */
+    background: transparent;
+    z-index: 2147483647; /* nếu cần */
+}
+
+/* Cho danh sách nút cũng thành hàng ngang */
+#flipbook-toolbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mỗi <li> cách nhau 1 chút */
+#flipbook-toolbar li {
+    margin: 0 8px;
+}
+
+#flipbook-toolbar a {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+
+    /* Muốn icon thành màu trắng (nếu icon gốc đen) */
+    filter: invert(1); /* Tuỳ trường hợp */
+    transition: background-color 0.2s ease;
+    text-indent: -9999px;  /* Đẩy chữ ra ngoài */
+    white-space: nowrap;   /* Khỏi xuống dòng */
+    overflow: hidden;      /* Ẩn phần thừa */
+}
+
+#flipbook-toolbar .wowbook-zoomin {
+    background-image: url(../images/icons/zoom_in.png);
+}
+#flipbook-toolbar .wowbook-zoomout {
+    background-image: url(../images/icons/zoom_out.png);
+}
+#flipbook-toolbar .wowbook-first {
+    background-image: url(../images/icons/arrow_double_left.png);
+}
+#flipbook-toolbar .wowbook-last {
+    background-image: url(../images/icons/arrow_double_right.png);
+}
+#flipbook-toolbar .wowbook-next {
+    background-image: url(../images/icons/arrow_right.png);
+}
+#flipbook-toolbar .wowbook-back {
+    background-image: url(../images/icons/arrow_left.png);
+}
+#flipbook-toolbar .wowbook-slideshow {
+    background-image: url(../images/icons/slideshow_play.png);
+}
+#flipbook-toolbar .wowbook-slideshow.wowbook-disabled {
+    background-image: url(../images/icons/slideshow_pause.png);
+}
+#flipbook-toolbar .wowbook-flipsound {
+    background-image: url(../images/icons/sound_on.png);
+}
+#flipbook-toolbar .wowbook-flipsound.wowbook-disabled {
+    background-image: url(../images/icons/sound_off.png);
+}
+#flipbook-toolbar .wowbook-thumbs {
+    background-image: url(../images/icons/thumbs.png);
+}
+#flipbook-toolbar .wowbook-fullscreen {
+    background-image: url(../images/icons/fullscreen_on.png);
+}
+#flipbook-toolbar .wowbook-fullscreen.wowbook-disabled {
+    background-image: url(../images/icons/fullscreen_off.png);
+}
+#flipbook-toolbar a:hover {
+    background-color: #2C2C2C;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fcfcfc), color-stop(100%, #f0f0f0));
+    background-image: -webkit-linear-gradient(top, #555555, #222222);
+    background-image: -moz-linear-gradient(top, #555555, #222222);
+    background-image: -ms-linear-gradient(top, #555555, #222222);
+    background-image: -o-linear-gradient(top, #555555, #222222);
+    background-image: linear-gradient(top, #555555, #222222);
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.85); /* Nền trắng hơi mờ */
+    border-radius: 10px; /* Bo góc nhẹ */
+    overflow: hidden; /* Giữ hình nền không bị tràn */
+}
+
+/* Định dạng header và footer với nền xám mờ */
+.modal-header, .modal-footer {
+    background: rgba(0, 0, 0, 0.1); /* Xám mờ */
+    color: #333;
+}
+
+/* Định dạng ảnh nền */
+.modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* Hiệu ứng mờ */
+    opacity: 0.4; /* Độ trong suốt */
+    z-index: 0;
 }
