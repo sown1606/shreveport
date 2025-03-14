@@ -24,6 +24,7 @@
                             <!-- Ảnh thumbnail ngoài trang, bấm => mở modal -->
                             <img src="{{ $thumbUrl }}"
                                  alt="thumbnail"
+                                 class="thumb-image"
                                  style="cursor:pointer; max-width:300px;"
                                  data-bs-toggle="modal"
                                  data-bs-target="#flipbookModal_sm_{{ $loop->index }}"/>
@@ -173,6 +174,7 @@
                                                data-lightbox-fifth="roadtrip">
                                                 <center><img
                                                         src="{{$thumbUrl}}"
+                                                        class="thumb-image"
                                                         style="max-width: 300px" alt=""></center>
                                             </a>
                                             <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
@@ -208,9 +210,9 @@
                                         <div class="slider-big">
                                             <a href="{{$winLoss->imgLink}}"
                                                data-lightbox-{{$winLoss->Year}}="roadtrip"
-                                               style="max-width: 100px;">
+                                               style="max-width: 300px;">
                                                 <img src="{{$winLoss->imgLink}}"
-                                                     style="max-width: 100px; margin-left: -47px;" alt="">
+                                                     style="max-width: 300px; margin-left: -47px;" alt="">
                                             </a>
                                         </div>
                                     </div>
@@ -231,7 +233,6 @@
             </div>
         </div>
         <div class="col-md-3">
-            <a href="/" rel="nofollow">
                 @switch($data->Tier)
                     @case('Gold')
                         <img
@@ -417,7 +418,6 @@
                         @endif
                     </div>
                 </div>
-            </a>
         </div>
     </div>
     <br>
@@ -426,19 +426,23 @@
             'use strict';
 
             $(document).ready(function () {
-                $('.pwsWinLoss').click(function () {
+                $('.pwsWinLoss').click(function (event) {
                     event.preventDefault();
-                    var anchor = document.getElementById('winloss-container');
-                    if (anchor != null) {
-                        anchor.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-                        if ($('#promosWLoss').css('display') !== "none") {
-                            $('#promosWLoss').fadeOut("slow");
+                    var $winLossContainer = $('#winloss-container');
+                    var $promosWLoss = $('#promosWLoss');
+
+                    // Kiểm tra trạng thái
+                    if ($promosWLoss.hasClass('show')) {
+                        $promosWLoss.removeClass('show').fadeOut("slow", function () {
                             $('#showHideWL').text("SHOW WIN LOSS");
-                        } else {
-                            $('#promosWLoss').fadeIn("slow");
+                        });
+                    } else {
+                        $promosWLoss.css("display", "block"); // Hiện trước để lấy chiều cao
+                        var newHeight = $promosWLoss.prop('scrollHeight') + "px"; // Lấy chiều cao thực
+                        $winLossContainer.css("height", newHeight); // Cập nhật chiều cao cha
+                        $promosWLoss.addClass('show').fadeIn("slow", function () {
                             $('#showHideWL').text("HIDE WIN LOSS");
-                        }
-                        // $('#promosWLoss').show();
+                        });
                     }
                 });
             });

@@ -54,7 +54,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="https://www.digitaldogdirect.com/">HOME</a>
+                        <a class="nav-link" aria-current="page" href="https://www.digitaldogdirect.com/">HOME</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link " href="#" id="navbarDropdownMenuLink1" role="button"
@@ -154,14 +154,14 @@
 
     <footer class="footer">
         <div class="container">
-            <p>QUICK CONTACT</p>
+            <h2  style="color: #527428;    font-size: 30px;">QUICK CONTACT</h2>
             <p>
                 Digital Dog Direct<br>
                 200 Ludlow Drive, Building E<br>
                 Ewing, NJ 08638<br>
-                <a href="tel:+1-609-882-3444">609-882-3444</a>
+                <a href="tel:+1-609-882-3444"   style="color: black;">609-882-3444</a>
             </p>
-            <p><a href="https://www.digitaldogdirect.com/contact-us">Contact Us</a></p>
+            <p><a href="https://www.digitaldogdirect.com/contact-us" style="color: black;">Contact Us</a></p>
             <p>© 2024 Digital Dog Direct LLC</p>
         </div>
     </footer>

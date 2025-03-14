@@ -28,17 +28,22 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     z-index: 10; /* Ensure navbar is on top */
     position: relative;
+    height: 102px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.nav-link{
+    padding: 1px 32px 1px 26px !important
 }
 
 .navbar-brand img {
     height: 50px;
-}
-
-.dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.9);
+    padding-left: 25px;
 }
 
 .footer {
+    border-top: #757575;
+    border-top: 5px solid #757575;
     background-color: #f8f9fa;
     padding: 20px 0;
     text-align: center;
@@ -50,8 +55,10 @@ body {
 .video-container {
     position: relative; /*  CRUCIAL for positioning the content */
     width: 100%;
-    height: 70vh; /* Or any desired height */
+    min-height: 100vh; /* Or any desired height */
     overflow: hidden; /* Hide overflowing video */
+    --fill-layer-video-opacity: 0.3;
+    --bg-overlay-color: rgb(255 255 255 / 60%);
 }
 
 #video-background {
@@ -99,6 +106,23 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
     overflow: hidden;        /* ẩn tràn */
     position: relative;      /* cho con absolute */
+}
+.nav-item {
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+    position: relative;
+    box-sizing: border-box;
+    overflow: visible;
+    visibility: inherit;
+    display: inline-block;
+    font-size: 14px;
+    font-family: questrial, sans-serif;
+    padding: 0 var(--pad, 5px)
+}
+
+.nav-item a {
+
 }
 
 .nav-item .dropdown-toggle::after {
@@ -184,20 +208,24 @@ body {
     display: none !important;
 }
 
-.dropdown-menu {
-    background-color: rgba(255,255,255,0.85) !important;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
 .dropdown-menu .dropdown-item {
-    color: #333;
-    padding: 8px 16px;
+    color: #000000;
     transition: background-color 0.2s ease;
+    background-color: #fff !important;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+;
 }
 
 .dropdown-menu .dropdown-item:hover {
-    background-color: #eee;
+    color: #527428 !important; /* Màu xanh gần giống với filter */
+}
+
+.dropdown-menu .dropdown-item:hover {
 }
 
 .publuu-close-x {
@@ -401,4 +429,40 @@ body {
 .modal-title-custom {
     margin: 0 auto !important;
     font-weight: 900;
+}
+
+navbarNavDropdown{
+
+}
+
+.thumb-image {
+    transition: transform 0.3s ease-in-out;
+}
+
+.thumb-image:hover {
+    transform: scale(1.1); /* Phóng to 10% */
+    cursor: pointer;
+}
+
+.slider-big {
+    position: relative; /* Để ảnh có thể mở rộng ra ngoài */
+    overflow: visible; /* Cho phép ảnh hiển thị ra ngoài div */
+    text-align: center; /* Giữ ảnh căn giữa */
+}
+
+#winloss-container {
+    overflow: visible !important;  /* Cho phép mở rộng */
+}
+
+#promosWLoss {
+    display: none;   /* Ẩn ban đầu */
+    visibility: hidden; /* Tránh lỗi nhấp nháy */
+    opacity: 0; /* Để dùng hiệu ứng mượt */
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out; /* Hiệu ứng */
+}
+
+#promosWLoss.show {
+    display: block !important; /* Hiện lên */
+    visibility: visible; /* Cho phép hiển thị */
+    opacity: 1; /* Hiện nội dung */
 }
