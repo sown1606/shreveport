@@ -8,6 +8,7 @@
             {{-- Offers Section --}}
             @if($data->offers_sm || $data->offers_pc)
                 <div class="row">
+                    <div class="col-md-6">
                     @if(count($data->offers_sm) > 0)
                         <div class="row justify-content-center">
                             @foreach($data->offers_sm as $index => $offer)
@@ -18,7 +19,7 @@
                             $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
                         @endphp
 
-                        <div class="col-md-4" style="margin-bottom: 30px; text-align:center;">
+                        <div class="col-md-12" style="margin-bottom: 30px; text-align:center;">
                             <h5 style="color: #5c8d33;">{{ $offer['label'] }}</h5>
 
                             <!-- Ảnh thumbnail ngoài trang, bấm => mở modal -->
@@ -40,7 +41,7 @@
                                     <div class="modal-content flipbook-content border border-white border-4" style="background: #fff;">
                                         <div class="modal-background" style="background-image: url('{{ $firstImage }}');"></div>
                                         <div class="modal-header">
-                                            <h5 class="modal-title-custom" style="min-width: 200px">{{ $offer['label'] }}</h5>
+                                            <h4 class="modal-title-custom" style="min-width: 200px">{{ $offer['label'] }}</h4>
                                             <nav id="flipbook-toolbar">
                                                 <ul style="list-style: none !important;">
                                                     <li><a id="first_sm_{{ $loop->index }}" class="wowbook-first" href="#">First
@@ -157,6 +158,9 @@
                     @endforeach
                         </div>
                     @endif
+                    </div>
+                    <div class="col-md-6">
+
                     @if(count($data->offers_pc) > 0)
                         <div class="row justify-content-center">
                             @foreach($data->offers_pc as $index => $offer)
@@ -165,7 +169,7 @@
                              $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
                              $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
                         @endphp
-                                <div class="col-sm-4">
+                                <div class="col-sm-12">
                                     <div class="modal-wrap">
                                         <h4 style="color: #5c8d33;text-align: center;">{{$offer['label']}}</h4>
 
@@ -190,6 +194,7 @@
                             @endforeach
                         </div>
                     @endif
+                    </div>
                 </div>
             @else
                 <p>No offers available at this time.</p>
