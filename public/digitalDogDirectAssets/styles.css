@@ -56,28 +56,31 @@ body {
     position: relative; /*  CRUCIAL for positioning the content */
     width: 100%;
     min-height: 100vh; /* Or any desired height */
+    height: auto !important; /* Cho phép mở rộng nếu nội dung vượt quá */
     overflow: hidden; /* Hide overflowing video */
     --fill-layer-video-opacity: 0.3;
     --bg-overlay-color: rgb(255 255 255 / 60%);
 }
 
 #video-background {
-    position: absolute; /* Take video out of flow */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover entire container */
-    z-index: -1; /* Place video BEHIND content */
+    min-height: 100vh; /* Đảm bảo không bị quá nhỏ */
+    object-fit: cover; /* Giữ video tràn màn hình mà không bị méo */
+    z-index: -1;
 }
 
 /* Content Overlay (for both guest and auth) */
 .content-overlay {
-    position: absolute; /*  Position within the video container */
-    width: 80%; /* Adjust as needed */
+    position: relative;
+    width: 100%; /* Thay vì 80% */
+    max-width: 1200px; /* Giữ giới hạn max-width hợp lý */
+    margin: auto; /* Canh giữa */
+    padding: 40px 20px; /* Tăng padding để không sát lề */
     text-align: center;
-    color: white; /* Default text color */
-    padding: 20px;
 }
 
 /* Guest-specific styles */
