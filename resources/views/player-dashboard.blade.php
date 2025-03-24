@@ -1,151 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <style>
-        .vertical-tab-container {
-            display: flex;
-            min-height: 600px;
-            border: 1px solid #ccc;
-        }
 
-        .vertical-tab-buttons {
-            display: flex;
-            flex-direction: column;
-            width: 170px;
-            border-right: 1px solid #ccc;
-            background: #f1f1f1;
-        }
-
-        .vertical-tab-buttons button {
-            background-color: inherit;
-            color: black;
-            padding: 14px 16px;
-            border: none;
-            outline: none;
-            text-align: left;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        .vertical-tab-buttons button:hover {
-            background-color: #ddd;
-        }
-
-        .vertical-tab-buttons button.active {
-            background-color: #5c8d33;
-            color: white;
-        }
-        .vertical-tab-content {
-            flex: 1;
-            padding: 20px;
-            display: none;
-        }
-
-        .vertical-tab-content.show {
-            display: block;
-        }
-        .outer-wrap {
-            margin: auto;
-            padding: 50px;
-            background: white;
-        }
-        .progress {
-            background-color: #e9ecef;
-            border-radius: 0.25rem;
-            overflow: hidden;
-            height: 20px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .progress-bar {
-            background-color: #5c8d33;
-            text-align: center;
-            color: #fff;
-            white-space: nowrap;
-            transition: width 0.6s ease;
-        }
-        .card-and-points {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .card-wrapper img {
-            max-width: 300px;
-            display: block;
-        }
-        .card-overlay {
-            position: absolute;
-            top: 150px;
-            left: 90px;
-            color: #fff;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .card-overlay .account-line {
-            margin-top: 4px;
-            font-size: 14px;
-        }
-
-        /* Chặn slick bóp ảnh */
-        .slider-big.slick-initialized .slick-track {
-            width: 100% !important;
-            transform: none !important;
-        }
-
-        .slider-big.slick-initialized .slick-list {
-            overflow: visible !important;
-            width: 100% !important;
-        }
-
-        /* Đảm bảo slick-track luôn căn giữa */
-        .slick-track {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            width: 100% !important; /* Đảm bảo slick-track luôn full width */
-        }
-
-        /* Slick slide phải có kích thước chuẩn */
-        .slick-slide {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            text-align: center !important;
-            width: auto !important; /* Đảm bảo slide không bị bóp méo */
-            max-width: 100% !important;
-        }
-
-        /* Slick list cần đủ rộng */
-        .slick-list {
-            overflow: hidden !important;
-            width: 100% !important;
-            text-align: center !important;
-        }
-
-        /* Đảm bảo hình ảnh không bị bóp méo */
-        .thumb-image {
-            height: auto !important;
-            display: block !important;
-            margin: auto !important;
-        }
     </style>
 
     <div class="row justify-content-center outer-wrap">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="vertical-tab-container">
                 <!-- Tabs -->
                 <div class="vertical-tab-buttons">
@@ -332,7 +192,7 @@
                                                             class="modal-content flipbook-content border border-white border-4"
                                                             style="background: #fff;">
                                                             <div class="modal-background"
-                                                                 style="background-image: url('{{ $firstImage }}');"></div>
+                                                                 style="background-color: black"></div>
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title-custom"
                                                                     style="min-width: 200px">{{ $offer['label'] }}</h4>
@@ -509,15 +369,37 @@
                     @else
                         <p>No offers available at this time.</p>
                     @endif
+
+                    <!-- Survey Tab -->
+                    @if(!empty($data->survey))
+                        <div id="surveyTab" class="vertical-tab-content">
+                            <h3 style="color:#5c8d33;">Survey</h3>
+                            <form action="{{ route('submitSurvey', ['survey_id' => $data->survey->Survey_id]) }}" method="POST">
+                                @csrf
+
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @php $question = $data->survey->{'Survey_Question_0'.$i}; @endphp
+                                    @if (!empty($question))
+                                        <div class="form-group" style="margin-bottom: 15px;">
+                                            <label style="font-weight:bold;">{{ $question }}</label>
+                                            <input type="text" class="form-control" name="Answer_0{{ $i }}" required />
+                                        </div>
+                                    @endif
+                                @endfor
+
+                                <button type="submit" class="btn btn-success">Submit Survey</button>
+                            </form>
+
+                            @if(session('success'))
+                                <div class="alert alert-success" style="margin-top:10px;">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
-                <!-- Survey Tab (nếu có) -->
-                @if(!empty($data->survey))
-                    <div id="surveyTab" class="vertical-tab-content">
-                        <h3>Survey</h3>
-                        <p>Display your survey or survey link here.</p>
-                    </div>
-                @endif
+
             </div>
         </div>
     </div>
@@ -530,23 +412,35 @@
 
     <script>
         function openTab(evt, tabName) {
-            // Ẩn tất cả các .vertical-tab-content
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("vertical-tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("show");
             }
-            // Bỏ active ở tất cả nút
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
-            // Hiện tab được click
             document.getElementById(tabName).style.display = "block";
             document.getElementById(tabName).classList.add("show");
             evt.currentTarget.classList.add("active");
+
+            // Lưu trạng thái tab hiện tại vào localStorage
+            localStorage.setItem('activeTab', tabName);
         }
+
+        // Mở tab đã lưu trước đó hoặc mặc định tab đầu tiên
+        document.addEventListener('DOMContentLoaded', function() {
+            let activeTab = localStorage.getItem('activeTab');
+            if(activeTab && document.getElementById(activeTab)) {
+                document.getElementById(activeTab).style.display = "block";
+                document.getElementById(activeTab).classList.add("show");
+                document.querySelector(`.tablinks[onclick*="${activeTab}"]`).classList.add("active");
+            } else {
+                document.getElementById("defaultOpen").click();
+            }
+        });
 
         // Mặc định mở tab đầu
         document.getElementById("defaultOpen").click();

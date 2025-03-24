@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\Voyager\VoyagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use App\Http\Controllers\ImportController;
 |
 */
 Route::view('/testWowbook', 'testWowbook');
+Route::post('/submit-survey/{survey_id}', [VoyagerController::class, 'submitSurvey'])->name('submitSurvey');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

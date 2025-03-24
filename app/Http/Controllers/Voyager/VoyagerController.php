@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Voyager;
 
+use App\Answer;
 use App\Data;
 use App\Host;
+use App\Survey;
 use App\User;
 use App\WinLoss;
 use Illuminate\Http\Request;
@@ -23,6 +25,24 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
+    }
+
+    public function submitSurvey(Request $request, $survey_id)
+    {
+        $playerId = auth()->user()->Player_ID;
+
+        Answer::updateOrCreate(
+            ['Survey_id' => $survey_id, 'Player_ID' => $playerId],
+            [
+                'Answer_01' => $request->input('Answer_01', ''),
+                'Answer_02' => $request->input('Answer_02', ''),
+                'Answer_03' => $request->input('Answer_03', ''),
+                'Answer_04' => $request->input('Answer_04', ''),
+                'Answer_05' => $request->input('Answer_05', '')
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Survey submitted successfully!');
     }
 
     public function makeImageWinLoss($accountId, $winLoss)
@@ -238,6 +258,8 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
             }
         }
         // ----------- KẾT THÚC CODE MỚI CHO MULTIPLE OFFERS -----------
+
+        $data->survey = Survey::first();
 
         return $data;
     }
