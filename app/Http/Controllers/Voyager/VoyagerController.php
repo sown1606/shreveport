@@ -261,6 +261,17 @@ class VoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerController
 
         $data->survey = Survey::first();
 
+        // Check nếu user đã trả lời survey này
+        if ($data->survey) {
+            $existingAnswer = Answer::where('Survey_id', $data->survey->Survey_id)
+                ->where('Player_ID', $accountId)
+                ->first();
+            if ($existingAnswer) {
+                // Tức là user đã trả lời => ẩn tab survey bằng cách set null
+                $data->survey = null;
+            }
+        }
+
         return $data;
     }
 

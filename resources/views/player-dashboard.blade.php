@@ -53,7 +53,8 @@
                                     </div>
                                 @endif
                                 <h6 style="color: #527428;text-align: center;"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><a
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a
                                         href="https://shreveport.pcwebserv.com/admin/logout"
                                         style="color: #527428">Logout</a>
                                 </h6>
@@ -154,19 +155,20 @@
                     <div id="offersTab" class="vertical-tab-content">
                         @if(!empty($data->offers_sm) || !empty($data->offers_pc))
                             <!-- Bọc SM + PC trong row có min-height và align-items-center -->
-                            <div class="row d-flex justify-content-center align-items-center" style="min-height: 600px; width: 100%;">
+                            <div class="row d-flex justify-content-center align-items-center"
+                                 style="min-height: 600px; width: 100%;">
                                 <!-- Cột SM -->
                                 <div class="col-md-6 d-flex flex-column justify-content-center"
                                      style="gap:20px; border: 0px solid red;">
 
-                                @if(count($data->offers_sm) > 0)
+                                    @if(count($data->offers_sm) > 0)
                                         @foreach($data->offers_sm as $index => $offer)
                                             @php
                                                 $jobNumber = $offer['offer']->Job_Number;
                                                 $thumbUrl = "https://digitaldogdirect.s3.us-east-1.amazonaws.com/{$jobNumber}_Thumb.jpg";
                                                 $firstImage = !empty($offer['results']) ? "https://digitaldogdirect.s3.us-east-1.amazonaws.com/" . $offer['results'][0] : '';
                                             @endphp
-                                            <!-- Mỗi item => center vertical với min-height -->
+                                                <!-- Mỗi item => center vertical với min-height -->
                                             <div class="d-flex flex-column align-items-center justify-content-center"
                                                  style="text-align:center; min-height:200px;">
                                                 <h4 style="color:#5c8d33;">
@@ -327,14 +329,14 @@
                                                 </script>
                                             </div>
                                         @endforeach
-                                @endif
-                            </div>
+                                    @endif
+                                </div>
 
                                 <!-- Cột PC -->
                                 <div class="col-md-6 d-flex flex-column justify-content-center"
                                      style="gap:20px; border: 0px solid blue;">
 
-                                @if(count($data->offers_pc) > 0)
+                                    @if(count($data->offers_pc) > 0)
                                         @foreach($data->offers_pc as $index => $offer)
                                             @php
                                                 $jobNumber = $offer['offer']->Job_Number;
@@ -346,23 +348,23 @@
                                                 <h4 style="color:#5c8d33;">
                                                     {{ $offer['label'] }}
                                                 </h4>
-                                                    <div class="slider-big">
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
-                                                           data-lightbox-fifth="roadtrip">
-                                                            <center><img
-                                                                    src="{{$thumbUrl}}"
-                                                                    class="thumb-image"
-                                                                    style="max-width: 300px" alt=""></center>
-                                                        </a>
-                                                        <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
-                                                           data-lightbox-fifth="roadtrip"
-                                                           style="display:none;">
-                                                        </a>
-                                                    </div>
+                                                <div class="slider-big">
+                                                    <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][0]}}"
+                                                       data-lightbox-fifth="roadtrip">
+                                                        <center><img
+                                                                src="{{$thumbUrl}}"
+                                                                class="thumb-image"
+                                                                style="max-width: 300px" alt=""></center>
+                                                    </a>
+                                                    <a href="https://digitaldogdirect.s3.us-east-1.amazonaws.com/{{$offer['results'][1]}}"
+                                                       data-lightbox-fifth="roadtrip"
+                                                       style="display:none;">
+                                                    </a>
                                                 </div>
-                                                <script src="/weekender_assets/js/modal_lightbox_fifth.min.js"></script>
                                             </div>
-                                        @endforeach
+                                            <script src="/weekender_assets/js/modal_lightbox_fifth.min.js"></script>
+                                </div>
+                                @endforeach
                                 @endif
                             </div>
                     </div>
@@ -374,18 +376,65 @@
                     @if(!empty($data->survey))
                         <div id="surveyTab" class="vertical-tab-content">
                             <h3 style="color:#5c8d33;">Survey</h3>
-                            <form action="{{ route('submitSurvey', ['survey_id' => $data->survey->Survey_id]) }}" method="POST">
+                            <form action="{{ route('submitSurvey', ['survey_id' => $data->survey->Survey_id]) }}"
+                                  method="POST">
                                 @csrf
 
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @php $question = $data->survey->{'Survey_Question_0'.$i}; @endphp
-                                    @if (!empty($question))
-                                        <div class="form-group" style="margin-bottom: 15px;">
-                                            <label style="font-weight:bold;">{{ $question }}</label>
-                                            <input type="text" class="form-control" name="Answer_0{{ $i }}" required />
+                                {{-- Câu hỏi 1 (Yes/No) --}}
+                                @if(!empty($data->survey->Survey_Question_01))
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label style="font-weight:bold;">{{ $data->survey->Survey_Question_01 }}</label>
+                                        <div>
+                                            <label>
+                                                <input type="radio" name="Answer_01" value="Yes" required/>
+                                                Yes
+                                            </label>
+                                            &nbsp;
+                                            <label>
+                                                <input type="radio" name="Answer_01" value="No" required/>
+                                                No
+                                            </label>
                                         </div>
-                                    @endif
-                                @endfor
+                                    </div>
+                                @endif
+
+                                {{-- Câu hỏi 2 (Yes/No) --}}
+                                @if(!empty($data->survey->Survey_Question_02))
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label style="font-weight:bold;">{{ $data->survey->Survey_Question_02 }}</label>
+                                        <div>
+                                            <label>
+                                                <input type="radio" name="Answer_02" value="Yes" required/>
+                                                Yes
+                                            </label>
+                                            &nbsp;
+                                            <label>
+                                                <input type="radio" name="Answer_02" value="No" required/>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                {{-- Câu hỏi 3,4,5 (text box) - hoặc ẩn bớt nếu chưa cần --}}
+                                @if(!empty($data->survey->Survey_Question_03))
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label style="font-weight:bold;">{{ $data->survey->Survey_Question_03 }}</label>
+                                        <input type="text" class="form-control" name="Answer_03"/>
+                                    </div>
+                                @endif
+                                @if(!empty($data->survey->Survey_Question_04))
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label style="font-weight:bold;">{{ $data->survey->Survey_Question_04 }}</label>
+                                        <input type="text" class="form-control" name="Answer_04"/>
+                                    </div>
+                                @endif
+                                @if(!empty($data->survey->Survey_Question_05))
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label style="font-weight:bold;">{{ $data->survey->Survey_Question_05 }}</label>
+                                        <input type="text" class="form-control" name="Answer_05"/>
+                                    </div>
+                                @endif
 
                                 <button type="submit" class="btn btn-success">Submit Survey</button>
                             </form>
@@ -397,9 +446,8 @@
                             @endif
                         </div>
                     @endif
+
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -431,9 +479,9 @@
         }
 
         // Mở tab đã lưu trước đó hoặc mặc định tab đầu tiên
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             let activeTab = localStorage.getItem('activeTab');
-            if(activeTab && document.getElementById(activeTab)) {
+            if (activeTab && document.getElementById(activeTab)) {
                 document.getElementById(activeTab).style.display = "block";
                 document.getElementById(activeTab).classList.add("show");
                 document.querySelector(`.tablinks[onclick*="${activeTab}"]`).classList.add("active");
